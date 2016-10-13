@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/cart_view.css">
+
+    <script type="text/template" id="cart_empty">
+        <div style>
+            <div class="cart-empty" style="padding: 80px 20px;">
+                <div style='text-align: center'>
+                    <i class="iconfont">&#xe608</i>
+                </div>
+                <div style="text-align:center;">
+                    <span>Your cart is empty</span>
+                    <br>
+                    <button onclick="continueShop()">Go Shopping</button>
+                </div>
+            </div>
+        </div>
+    </script>
+</head>
+
+<body ontouchstart="">
+	##{% include "../ga/body_top_template.html" %}
+<div class="cart">
+ 
+    #if ($!{cartList})
+	    <div class="cart-heading">
+	        <div class="total">
+	            <span class="price_text sub_total_text">TOTAL:$!{currency}</span>
+	            <span class="price_amount sub_total_amount">$math.roundTo(2, $!{actualPrice})</span>
+	        </div>
+	        <div class="shipping">
+	            <span> Shipping: <span class="shipping_info"> $!{currency} $!{postFee}</span> </span>
+	            <br>
+	            <div id="shipping-box" style="display:none">
+	                <span>Add <span>$!{currency}</span> <span class="price_left">$math.roundTo(2, $!{amountToFreeDelivery})</span> for Free Shipping</span>
+	            </div>
+	        </div>
+	    </div>
+    #end
+    #if ($!{cartList} && $!{amountToFreeDelivery} > 0)
+        <div id='sticker_top' style="height:90px;"></div>
+    #end
+    #if ($!{cartList} && $!{amountToFreeDelivery} == 0)
+        <div id='sticker_top' style="height:76x;"></div>
+    #end
+    #if (!$!{cartList})
+        <div class="cart-empty" style="padding: 80px 20px;">
+            <div style='text-align: center'>
+                <img src="/img/cart.png" />
+            </div>
+            <div style="text-align:center;">
+                <span>Your cart is empty</span>
+                <br>
+                <button onclick="continueShop()">Go Shopping</button>
+            </div>
+        </div>
+    #end
+    <div class="error_alert" id="error_alert" style="display: none">
+        <div class="error_alert_content">
+        </div>
+    </div>
+    <div class='collapse-box' id='cart-collapse'>
+    #foreach($item in $!{cartList})
+        #if (!$item.isSaleOk)
+            <div class="item_content caution" id="row_$!{item.spuId}" data="$!{item.id},$!{item.spuId}">
+                <div class="container-fluid" style="margin:0;overflow:hidden;background:#f5f5f5">
+                    <div class="row">
+                        <div class="pro_img">
+                            <div class="img-wrap">
+                                <img src="$!{item.imageUrl}" onclick="goToDetail($!{item.spuId})" />
+                            </div>
+                            <div class="pro-title"  style="overflow:hidden">
+                                <div style="overflow: hidden; height:40px;">$!{item.productName}</div>
+                                <br>
+                                #if(1 == $!{velocityCount})
+                                <span class='unavailable-text' style="color: #999999;display:block">
+                                    Sorry,&nbsp;<text>some&nbsp;products&nbsp;are&nbsp;</text>currently unavailable.
+                                </span>
+                                #end
+                            </div>
+                            <div class="remove pull-right">
+                                <button class="btn-div epic-remove" style="background:#F5F5F5"
+                                onclick="deleteModalOpen($!{item.id}, $!{item.spuId})">
+                                    &#10005;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0;height:40px">
+                        <div class="row item_sku">
+                        #if($item.propList)
+                            #foreach($prop in $!{item.propList})
+                            <span>
+                            	$!{prop.propValue}
+                            	#if($!{velocityCount} != $!($item.propList.size()))
+                            		<span>,&nbsp;</span>
+                            	#end
+                            </span>
+                            #end
+                        #end
+                        </div>
+                        #if($!{velocityCount} == 1)
+                        <div class="toggle-btn right v-center" id="box_$!{item.skuId}">
+                            <button onclick="toggleCart()" id='toggle-cart' class='btn-div'>
+                                See All&nbsp;&nbsp;<span class='iconfont'>&#xe600;</span>
+                            </button>
+                        </div>
+                        #end
+                    </div>
+                </div>
+            </div>
+        #else
+            #break
+        #end
+    #end
+    </div>
+    <div class="item_list">
+    
+    #foreach($item in $!{cartList})
+    	#if($!{item.imageUrl} && (true == $!{item.isSaleOk}))
+        <div class="item_content" id="row_$!{item.spuId}">
+            <div class="container-fluid" style="margin:0;overflow:hidden;">
+                <div class="row">
+                    <div class="pro_img">
+                        <div class="img-wrap">
+                            <img src="$!{item.imageUrl}" onclick="goToDetail($!{item.spuId})" />
+                        </div>
+                        <div class="pro-title"  style="overflow:hidden">
+                            <div style="overflow: hidden; height:40px;">$!{item.productName}</div>
+                            <br>
+                            #if($!{item.isSaleOk} == true)
+	                            <span style="color:#F15440;white-space: nowrap;">
+	                                $!{currency}&nbsp;<span class='item_price'>$math.roundTo(2, $!{item.price})</span>&nbsp;&nbsp;
+	                            </span>
+	                            <del>
+	                                <span>$math.roundTo(2, $!{item.platformPrice})</span>
+	                            </del>
+                            #end
+                        </div>
+                        <div class="remove pull-right">
+                            <button class="btn-div epic-remove" onclick="deleteModalOpen($!{item.id},$!{item.spuId})">
+                                &#10005;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin:0;">
+                    <div class="row item_sku">
+                    #if($item.propList)
+                        #foreach($prop in $!{item.propList})
+                        	<span>
+                            	$!{prop.propValue}
+                            	#if($!{velocityCount} != $!($item.propList.size()))
+                            		<span>,&nbsp;</span>
+                            	#end
+                            </span>
+                        </span>
+                        #end
+                    #end
+                    </div>
+
+                    #if($!{item.isSaleOk} == false)
+	                    <div class="row well_row">
+	                        <div class="well">
+	                            Sorry, this product is currently unavailable.
+	                        </div>
+	                    </div>
+                    #else
+                    	<div class="sku_quantity pull-right" id="box_$!{item.spuId}">
+	                        <button class="quantity_sub btn-div" style="height:20px;width:20px;" onclick="update(this, 'sub', $!{item.skuId})" data="$!{item.spuId}">-</button>
+	                        <span id="quantity_$!{item.spuId}" style="width: 30px;display: inline-block;">$!{item.quantity} </span>
+	                        <button class="quantity_add btn-div" style="height:20px;width:20px;" onclick="update(this, 'add', $!{item.skuId})" data="$!{item.spuId}">+</button>
+	                    </div>
+                    #end
+                </div>
+            </div>
+        </div>
+    	#end
+    #end
+    </div>
+
+
+	#if($!{cartList})
+	    <div class="bottom">
+	        <button class="btn-div checkout-btn" onclick="checkout()">Secure checkout</button>
+	    </div>
+    #end
+
+    <div id="cautionModal" style="top:0px;background:rgba(0,0,0,0.3);height:100vh;width:100%;position:fixed;z-index:1000;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div class="modal-body">
+            <div class='delete-msg'>
+                <b style="font-size:20px;display:block;margin-bottom:5px;">Oops!</b>
+                Looks like there are unavailable items in your cart!
+            </div>
+            <button class="btn-div delete-btn" onclick="removeUnavailables()">
+                Delete those items and proceed
+            </button>
+            <button class="btn-div delete-btn" onclick='cautionModalClose()'>
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="btn-div" style="z-index:250;background:rgba(0,0,0,0.3);width:100vw;height:100vh;position:fixed;top:0px;display:none">
+        <div class="flex-box">
+            <div class="modal-body">
+                <div class='delete-msg'><b style="font-size:20px;">Are you sure</b> <br> you want to delete this item?</div>
+                <button class="btn-div delete-btn" onclick="deleteCartItem(1)">
+                    Save and Buy Later
+                </button>
+                <button class="btn-div delete-btn" onclick="deleteCartItem(0)">
+                    Yes, delete it
+                </button>
+                <button class="btn-div delete-btn" onclick='deleteModalClose()'>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="alertModal" style="top:0px;height:100%;width:100%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;width:100vw">
+            <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:10%;">
+                fill content here
+            </div>
+        </div>
+    </div>
+
+
+</div>
+    <script src="/js/common/jquery-2.2.4.min.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/common/js.cookie.js"></script>
+    <script src="/js/common/underscore-min.js"></script>
+    
+    <script src="/js/common/util.js"></script>
+    <script src="/js/common/init.js"></script>
+    <script src="/js/cart_view.js"></script>
+
+	##{% include "../ga/body_bottom_template.html" %}
+</body>
+
+</html>

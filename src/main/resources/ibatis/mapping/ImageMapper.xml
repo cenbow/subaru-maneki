@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.ImageDao">
+	<resultMap id="ImageMap" type="com.subaru.maneki.model.Image">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="SMALL_URL" property="smallUrl" jdbcType="VARCHAR" />
+		<result column="MIDDLE_URL" property="middleUrl" jdbcType="VARCHAR" />
+		<result column="SEQUENCE" property="sequence" jdbcType="BIGINT" />
+		<result column="IS_MAIN" property="isMain" jdbcType="TINYINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.Image"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO product_image
+		(
+		<if test="url != null">
+			URL
+		</if>
+		<if test="smallUrl != null">
+			,SMALL_URL
+		</if>
+		<if test="middleUrl != null">
+			,MIDDLE_URL
+		</if>
+		<if test="sequence > 0">
+			,SEQUENCE
+		</if>
+		<if test="isMain">
+			,IS_MAIN
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test = "url != null">
+			#{url}
+		</if>
+		<if test="smallUrl != null">
+			,#{smallUrl}
+		</if>
+		<if test="middleUrl != null">
+			,#{middleUrl}
+		</if>
+		<if test="sequence > 0">
+			,#{sequence}
+		</if>
+		<if test="isMain">
+			,#{isMain}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Image">
+		UPDATE product_image
+		<set>
+			<if test="url != null">
+				URL = #{url}
+			</if>
+			<if test="smallUrl != null">
+				,SMALL_URL = #{smallUrl}
+			</if>
+			<if test="middleUrl != null">
+				,MIDDLE_URL = #{middleUrl}
+			</if>
+			<if test="sequence > 0">
+				,SEQUENCE = #{sequence}
+			</if>
+			<if test="isMain">
+				,IS_MAIN = #{isMain}
+			</if>
+			<if test="gmtCreate!=null">
+				,GMT_CREATE = #{gmtCreate} 
+			</if>
+			<if test="gmtUpdate!=null">
+				,GMT_UPDATE = #{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_image WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="ImageMap">
+		SELECT * FROM product_image WHERE ID = #{id}
+	</select>
+
+</mapper>

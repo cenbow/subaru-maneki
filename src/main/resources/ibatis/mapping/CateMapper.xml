@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.CateDao">
+	<resultMap id="CateMap" type="com.subaru.maneki.model.Cate">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
+		<result column="CATE_NAME" property="name" jdbcType="VARCHAR" />
+		<result column="OLD_ID" property="oldId" jdbcType="BIGINT" />
+		<result column="SEQUENCE" property="sequence" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.Cate"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO product_cate
+		(
+		PARENT_ID
+		,CATE_NAME
+		<if test="sequence > 0">
+			,SEQUENCE
+		</if>
+		<if test="oldId > 0">
+			,OLD_ID
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		#{parentId}
+		,#{name}
+		<if test="sequence > 0">
+			,#{sequence}
+		</if>
+		<if test="oldId > 0">
+			,#{oldId}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Cate">
+		UPDATE product_cate
+		<set>
+		  	PARENT_ID = #{parentId}
+			,CATE_NAME = #{name}
+			<if test="sequence > 0">
+				,SEQUENCE = #{sequence}
+			</if>
+			<if test="oldId > 0">
+				,OLD_ID = #{oldId}
+			</if>
+			<if test="gmtCreate!=null">
+				,GMT_CREATE = #{gmtCreate} 
+			</if>
+			<if test="gmtUpdate!=null">
+				,GMT_UPDATE = #{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_cate WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="CateMap">
+		SELECT * FROM product_cate WHERE ID = #{id}
+	</select>
+	
+	<select id = "selectAll" resultMap = "CateMap">
+		SELECT * FROM product_cate;
+	</select>
+	
+	<select id="selectByName" parameterType="string" resultMap="CateMap">
+		SELECT * FROM product_cate  WHERE CATE_NAME = #{name}
+	</select>
+	
+	<select id="selectByOldId" parameterType="int" resultMap="CateMap">
+		SELECT * FROM product_cate  WHERE OLD_ID = #{oldId}
+	</select>
+	
+	<select id="selectByParentId" parameterType="int" resultMap="CateMap">
+		SELECT * FROM product_cate WHERE PARENT_ID = #{parentId}
+	</select>
+</mapper>

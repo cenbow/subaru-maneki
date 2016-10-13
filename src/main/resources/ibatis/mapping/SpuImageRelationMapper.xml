@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SpuImageRelationDao">
+	<resultMap id="SpuImageMap" type="com.subaru.maneki.model.SpuImageRelation">
+		<id column="SPU_ID" property="spuId" jdbcType="BIGINT" />
+		<id column="IMAGE_ID" property="imageId" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.SpuImageRelation"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO product_spu_image (
+		SPU_ID, IMAGE_ID
+		<if test="gmtCreate != null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate != null">
+			,GMT_UPDATE
+		</if>
+		)
+		values (
+		#{spuId}, #{imageId}
+		<if test="gmtCreate != null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate != null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE product_spu_image
+		<set>
+			<if test="spuId > 0">
+				SPU_ID = #{spuId}
+			</if>
+			<if test="imageId > 0">
+				,IMAGE_ID = #{imageId}
+			</if>
+<!-- 			<if test="gmtCreate != null"> -->
+<!-- 				,GMT_CREATE = #{gmtCreate} -->
+<!-- 			</if> -->
+<!-- 			<if test="gmtUpdate != null"> -->
+<!-- 				,GMT_UPDATE = #{gmtUpdate} -->
+<!-- 			</if> -->
+		</set>
+		WHERE IMAGE_ID = #{oldImageId} AND SPU_ID = #{oldSpuId};
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_spu_image WHERE SPU_ID = #{spuId} AND IMAGE_ID = #{imageId}
+	</delete>
+	
+	<select id = "select" resultMap = "SpuImageMap">
+		SELECT * FROM product_spu_image WHERE SPU_ID=#{spuId} AND IMAGE_ID=#{imageId}
+	</select>
+	
+	<select id = "selectBySpuId" parameterType="int" resultMap = "SpuImageMap">
+		SELECT * FROM product_spu_image WHERE SPU_ID=#{spuId}
+	</select>
+	
+	<select id = "selectByImageId" parameterType="int" resultMap = "SpuImageMap">
+		SELECT * FROM product_spu_image WHERE IMAGE_ID=#{imageId}
+	</select>
+</mapper>

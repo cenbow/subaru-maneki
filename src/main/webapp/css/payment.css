@@ -1,0 +1,414 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1467944552_2650719.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1467944552_2650719.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1467944552_2650719.woff") format("woff"), url("//at.alicdn.com/t/font_1467944552_2650719.ttf") format("truetype"), url("//at.alicdn.com/t/font_1467944552_2650719.svg#iconfont") format("svg");
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont";
+  font-size: 16px;
+  font-style: normal;
+}
+
+html, body {
+  height: 100%;
+}
+
+#create_order_page {
+  background-color: #f5f5f5;
+  min-height: 100%;
+}
+#create_order_page #check_alert {
+  margin-bottom: 0;
+}
+#create_order_page .edit_address_form {
+  margin-bottom: 10px;
+}
+#create_order_page .edit_address_form input, #create_order_page .edit_address_form select {
+  background-color: #fff;
+  width: 100%;
+  height: 44px;
+  padding-left: 15px;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+}
+#create_order_page .edit_address_form textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 13px;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+#create_order_page .edit_address_form select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  padding-left: 15px;
+  border-radius: 0;
+}
+#create_order_page .edit_address_form select:first-child {
+  border-top: none;
+}
+#create_order_page .edit_address_form .right_icon {
+  position: absolute;
+  top: 11px;
+  right: 10px;
+  color: #ccc;
+}
+#create_order_page .edit_address_form .save_line {
+  background-color: #fff;
+  height: 60px;
+  line-height: 60px;
+  padding: 14px 0;
+  margin-bottom: 10px;
+}
+#create_order_page .edit_address_form .save_line .save_btn {
+  margin: 0 auto;
+  border: 1px solid #F15440;
+  border-radius: 3px;
+  color: #F15440;
+  height: 32px;
+  width: 99px;
+  line-height: 32px;
+  text-align: center;
+}
+#create_order_page .edit_address_form .no_zip {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  font-size: 12px;
+  color: #999;
+  height: 44px;
+  line-height: 44px;
+}
+#create_order_page .edit_address_form .no_zip .iconfont {
+  color: #ccc;
+  font-size: 12px;
+}
+#create_order_page .edit_address_form .no_zip .checked {
+  color: #F15440;
+}
+#create_order_page .edit_address_form .error_border {
+  border: 1px solid #F15440;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+#create_order_page .edit_address_form .error_font {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  color: #F15440;
+}
+#create_order_page .show_address {
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+#create_order_page .show_address .address_block {
+  padding: 18px 20px 18px 15px;
+}
+#create_order_page .show_address .address_block .shipping_label {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+#create_order_page .show_address .address_block .name_phone {
+  margin-bottom: 10px;
+}
+#create_order_page .show_address .edit_address {
+  background-color: #fff;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  color: #F15440;
+  border-top: 1px solid #e5e5e5;
+}
+#create_order_page .show_order_summary {
+  background-color: #fff;
+}
+#create_order_page .show_order_summary .toggle_line_btn {
+  padding: 0 15px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #e5e5e5;
+}
+#create_order_page .show_order_summary .toggle_line_btn .cart_icon {
+  position: relative;
+  top: 3px;
+  font-size: 22px;
+  margin-right: 16px;
+}
+#create_order_page .show_order_summary .toggle_line_btn .toggle_icon {
+  float: right;
+  font-size: 12px;
+  color: #ccc;
+}
+#create_order_page .item_list .up {
+  background-color: #fff;
+  padding: 15px 0;
+  text-align: center;
+}
+#create_order_page .item_list .up .up_icon {
+  font-size: 12px;
+  color: #ccc;
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari 和 Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+#create_order_page .price_block .order_price_block {
+  background-color: #fff;
+  padding: 20px 12px 15px 15px;
+  margin-top: 10px;
+}
+#create_order_page .price_block .order_price_block .price_line:first-child {
+  margin-bottom: 15px;
+}
+#create_order_page .price_block .order_price_block .price_line .line_label {
+  display: inline-block;
+  color: #999;
+}
+#create_order_page .price_block .order_price_block .price_line .line_right {
+  display: inline-block;
+  float: right;
+}
+#create_order_page .price_block .total_price_block {
+  background-color: #fff;
+  font-size: 16px;
+  border-top: 1px solid #e5e5e5;
+  padding: 15px 12px 22px 15px;
+}
+#create_order_page .price_block .total_price_block .total_label {
+  display: inline-block;
+}
+#create_order_page .price_block .total_price_block .total_price {
+  display: inline-block;
+  float: right;
+  color: #F15440;
+}
+#create_order_page .price_block:after {
+  content: "";
+  display: block;
+  height: 65px;
+}
+#create_order_page .submit_btn {
+  position: fixed;
+  bottom: 0;
+  /*padding:15px 0;*/
+  height: 44px;
+  line-height: 44px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #F15440;
+  text-align: center;
+  width: 100%;
+}
+#create_order_page .submit_btn:active {
+  background-color: #993300;
+}
+
+.payment_method_page {
+  background-color: #f5f5f5;
+}
+.payment_method_page .order_info {
+  background-color: #fbfbfb;
+  padding: 0 13px;
+  height: 44px;
+  line-height: 44px;
+}
+.payment_method_page .order_info .order_no {
+  color: #666;
+}
+.payment_method_page .order_info .order_total {
+  float: right;
+}
+.payment_method_page .order_info .order_total span {
+  color: #F15440;
+}
+.payment_method_page .order_info .toggle_icon {
+  width: 16px;
+  float: right;
+  margin-left: 5px;
+}
+.payment_method_page .order_info .toggle_icon .iconfont {
+  color: #ccc;
+}
+.payment_method_page .address_block {
+  background-color: #fff;
+  padding: 15px 27px 20px 15px;
+}
+.payment_method_page .address_block .shipping_label {
+  color: #999;
+  margin-bottom: 10px;
+}
+.payment_method_page .address_block .name_phone {
+  margin-bottom: 4px;
+}
+.payment_method_page .payment_method {
+  background-color: #fff;
+  margin-top: 12px;
+}
+.payment_method_page .payment_method a:focus, .payment_method_page .payment_method a:hover {
+  text-decoration: none;
+}
+.payment_method_page .payment_method .payment_title {
+  height: 44px;
+  line-height: 44px;
+  padding-left: 15px;
+  background-color: #fbfbfb;
+  color: #666;
+}
+.payment_method_page .payment_method .payment_line {
+  display: block;
+  padding: 0 13px;
+  height: 60px;
+  line-height: 60px;
+  border-top: 1px solid #f2f2f2;
+  color: #333;
+}
+.payment_method_page .payment_method .payment_line .iconfont {
+  float: right;
+  color: #ccc;
+}
+.payment_method_page .payment_method .paypal img {
+  width: 87px;
+  position: relative;
+  bottom: 3px;
+}
+.payment_method_page .payment_method .credit_card img {
+  width: 35px;
+  position: relative;
+  bottom: 2px;
+}
+
+.credit_card_payment {
+  padding: 20px 40px 0 40px;
+}
+.credit_card_payment img {
+  width: 35px;
+}
+.credit_card_payment .credit_card_form {
+  margin-top: 16px;
+}
+.credit_card_payment .credit_card_form fieldset {
+  margin-bottom: 10px;
+}
+.credit_card_payment .credit_card_form input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 40px;
+}
+.credit_card_payment .credit_card_form .eg {
+  padding-left: 15px;
+  margin-top: -10px;
+  margin-bottom: 25px;
+}
+.credit_card_payment .credit_card_form .eg span {
+  color: #999;
+  vertical-align: top;
+}
+.credit_card_payment .credit_card_form .eg img {
+  width: 180px;
+}
+.credit_card_payment .pay_total_price {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.credit_card_payment .pay_total_price i {
+  color: #F15440;
+}
+.credit_card_payment .pay_total_price span {
+  color: #666;
+}
+.credit_card_payment .pay_now {
+  background-color: #F15440;
+  color: #fff;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.moneygram_payment {
+  padding: 15px 20px 18px 20px;
+  color: #666;
+  text-align: center;
+  font-size: 12px;
+}
+.moneygram_payment .order_info {
+  background-color: #fbfbfb;
+  text-align: center;
+  padding: 5px 0 10px 0;
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 12px;
+}
+.moneygram_payment .order_info p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.moneygram_payment .order_info span {
+  color: #F15440;
+}
+.moneygram_payment .block {
+  border: 1px solid #999;
+  text-align: center;
+  width: 173px;
+  margin: 0 auto;
+  height: 60px;
+  line-height: 20px;
+  padding: 10px 0;
+}
+.moneygram_payment .title {
+  margin: 15px 0 8px 0;
+  font-size: 14px;
+}
+.moneygram_payment .bottom_info {
+  background-color: #fbfbfb;
+  padding: 8px 0 12px 0;
+  margin-top: 25px;
+  line-height: 20px;
+}
+.moneygram_payment a {
+  display: block;
+}
+.moneygram_payment a:focus, .moneygram_payment a:hover {
+  text-decoration: none;
+}
+.moneygram_payment a.ok_button {
+  color: #F15440;
+  border: 1px solid #F15440;
+  text-align: center;
+  width: 110px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 3px;
+  margin: 20px auto 0 auto;
+}
+
+.flipy {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari 和 Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+
+/*# sourceMappingURL=payment.css.map */

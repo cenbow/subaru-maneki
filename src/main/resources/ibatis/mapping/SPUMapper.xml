@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SpuDao">
+	<resultMap id="SPUMap" type="com.subaru.maneki.model.Spu">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CATE_ID" property="cateId" jdbcType="INTEGER" />
+		<result column="IS_PUBLISHED" property="isPublished" jdbcType="BOOLEAN" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="SEARCH_KEYWORDS" property="searchKeywords" jdbcType="VARCHAR" />
+		<result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+		<result column="SCORE" property="score" jdbcType="VARCHAR" />
+		<result column="CLUSTER_ID" property="clusterId" jdbcType="BIGINT" />
+		<result column="SOLD" property="sold" jdbcType="INTEGER" />
+		<result column="OLD_ID" property="oldId" jdbcType="BIGINT" />
+		<result column="OVERALL_SCORE" property="overallScore" jdbcType="BIGINT" />
+		<result column="NEW_USER_SCORE" property="newUserScore" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="SpuCateMap" type="com.subaru.maneki.model.Spu" extends="SPUMap">
+		<collection property="cateList" ofType="com.subaru.maneki.model.SpuCateRelation" column="spuId">
+			<id column="CATE_ID" property="cateId" jdbcType="BIGINT" />
+		</collection>
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.Spu"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO product_spu (
+		<if test="name != null">
+			NAME
+		</if>
+		<if test="cateId != null">
+			,CATE_ID
+		</if>
+		<if test="isPublished != null">
+			,IS_PUBLISHED
+		</if>
+		<if test="productNo != null">
+			,PRODUCT_NO
+		</if>
+		<if test="searchKeywords != null">
+			,SEARCH_KEYWORDS
+		</if>
+		<if test="comment != null">
+			,COMMENT
+		</if>
+		<if test="score != null">
+			,SCORE
+		</if>
+		<if test="clusterId != null">
+			,CLUSTER_ID
+		</if>
+		<if test="sold > 0">
+			,SOLD
+		</if>
+		<if test="oldId > 0">
+			,OLD_ID
+		</if>
+		<if test="overallScore > 0">
+			,OVERALL_SCORE
+		</if>
+		<if test="newUserScore > 0">
+			,NEW_USER_SCORE
+		</if>
+		<if test="gmtCreate != null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate != null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		 (
+		 <if test="name != null">
+			#{name}
+		</if>
+		<if test="cateId != null">
+			,#{cateId}
+		</if>
+		<if test="isPublished != null">
+			,#{isPublished}
+		</if>
+		<if test="productNo != null">
+			,#{productNo}
+		</if>
+		<if test="searchKeywords != null">
+			,#{searchKeywords}
+		</if>
+		<if test="comment != null">
+			,#{comment}
+		</if>
+		<if test="score != null">
+			,#{score}
+		</if>
+		<if test="clusterId != null">
+			,#{clusterId}
+		</if>
+		<if test="sold > 0">
+			,#{sold}
+		</if>
+		<if test="oldId > 0">
+			,#{oldId}
+		</if>
+		<if test="overallScore > 0">
+			,#{overallScore}
+		</if>
+		<if test="newUserScore > 0">
+			,#{newUserScore}
+		</if>
+		<if test="gmtCreate != null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate != null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Spu">
+		UPDATE product_spu
+		<set>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+
+			<if test="cateId > 0">
+				CATE_ID = #{cateId},
+			</if>
+			<if test="isPublished != null">
+				IS_PUBLISHED = #{isPublished},
+			</if>
+			<if test="productNo != null">
+				PRODUCT_NO = #{productNo},
+			</if>
+
+			<if test="searchKeywords != null">
+				SEARCH_KEYWORDS = #{searchKeywords},
+			</if>
+
+			<if test="comment != null">
+				COMMENT = #{comment},
+			</if>
+
+			<if test="score != null">
+				SCORE = #{score},
+			</if>
+			<if test="clusterId != null">
+				CLUSTER_ID = #{clusterId},
+			</if>
+			<if test="sold > 0">
+				SOLD = #{sold}
+			</if>
+			<if test="oldId > 0">
+				OLD_ID = #{oldId},
+			</if>
+			<if test="overallScore > 0">
+				OVERALL_SCORE = #{overallScore},
+			</if>
+			<if test="newUserScore > 0">
+				NEW_USER_SCORE = #{newUserScore},
+			</if>
+			<if test="gmtCreate != null">
+				GMT_CREATE = #{gmtCreate},
+			</if>
+			<if test="gmtUpdate != null">
+				GMT_UPDATE = #{gmtUpdate},
+			</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_spu where ID = #{id}
+	</delete>
+	
+	<select id="select" parameterType="int" resultMap="SPUMap">
+		SELECT * FROM product_spu WHERE ID=#{id}
+	</select>
+	
+	<select id="selectForCateList" parameterType="int" resultMap="SpuCateMap">
+		SELECT 
+			DISTINCT 
+			s.*,
+			r.cate_id
+		FROM 
+			product_spu s
+		LEFT JOIN
+			product_spu_cate_r r
+		ON
+			s.id = r.spu_id
+		WHERE s.id = #{id}
+	</select>
+	
+	<select id="selectByLimit" resultMap="SPUMap">
+		SELECT * FROM product_spu  
+		<if test="start>=0">
+			<if test="limit >0">
+				LIMIT ${start},${limit}
+			</if>
+		</if>
+
+		<if test="start &lt; 0">
+			<if test="limit > 0">
+				LIMIT ${limit}
+			</if>
+		</if>
+	</select>
+	
+	<select id="selectByLimitAndIsPublished" resultMap="SPUMap">
+		SELECT * FROM product_spu WHERE is_published = ${isPublished}
+		<if test="start>=0">
+			<if test="limit >0">
+				LIMIT ${start},${limit}
+			</if>
+		</if>
+
+		<if test="start &lt; 0">
+			<if test="limit > 0">
+				LIMIT ${limit}
+			</if>
+		</if>
+	</select>
+	
+	<select id="selectByCate" resultMap="SPUMap">
+		SELECT * FROM product_spu  WHERE CATE_ID = #{cateId}
+		<if test="start>=0">
+			<if test="limit >0">
+				LIMIT ${start},${limit}
+			</if>
+		</if>
+
+		<if test="start &lt; 0">
+			<if test="limit > 0">
+				LIMIT ${limit}
+			</if>
+		</if>
+	</select>
+	
+	<select id="countAll" parameterType="int" resultType="int">
+		SELECT count(ID) from product_spu WHERE IS_PUBLISHED = ${isPublished}
+	</select>
+	
+	<select id="countByCate" parameterType="int" resultType="int">
+		SELECT count(ID) from product_spu WHERE CATE_ID = #{cateId} AND IS_PUBLISHED = ${isPublished}
+	</select>
+
+	<select id="selectByIdList" parameterType="string" resultMap="SPUMap">
+		SELECT * FROM product_spu WHERE id in (${idList})
+	</select>
+	
+	<select id="selectByOldId" resultMap="SPUMap">
+		SELECT * FROM product_spu WHERE OLD_ID = ${oldId}
+	</select>
+	
+	<select id="selectByCateIdListAndIsPushlished" resultMap="SPUMap">
+		SELECT 
+			DISTINCT 
+			s.*
+		FROM 
+			product_spu s
+		LEFT JOIN
+			product_spu_cate_r r
+		ON
+			s.id = r.spu_id
+		WHERE r.cate_id IN (${cateIdList}) AND s.is_published = ${isPublished}
+		<if test="start>=0">
+			<if test="limit >0">
+				LIMIT ${start},${limit}
+			</if>
+		</if>
+
+		<if test="start &lt; 0">
+			<if test="limit > 0">
+				LIMIT ${limit}
+			</if>
+		</if>
+	</select>
+</mapper>

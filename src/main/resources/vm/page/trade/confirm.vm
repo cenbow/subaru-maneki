@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/item_line.css">
+    
+    <script>
+    	function init () {
+    		#if($!{address})
+    			var addressId = $!{address.id};
+    		#else
+    			var addressId = 0;
+    		#end
+    		
+    		return [addressId, "$!{currency}"];
+    	}
+    </script>
+</head>
+
+<body ontouchstart="">
+	##{% include "../ga/body_top_template.html" %}
+	
+	#set( $totalPrice=$cartTotalPrice  +  $postFee )
+	
+    <div id="create_order_page">
+        #if($!{showForm} == true)
+        <form class="edit_address_form">
+        #else
+        <form class="edit_address_form" style="display:none">
+        #end
+            <div style="position:relative">
+            	#if($!{detailedUser.email}) 
+                	<input type="text" id="edit_email" name="email" placeholder="Email" value="$!{detailedUser.email}" />
+                #else
+                	<input type="text" id="edit_email" name="email" placeholder="Email" />
+                #end
+                <span class="error_font" style="display:none">* Email</span>
+            </div>
+            #if($!{detailedUser.nick})
+            	<input type="text" id="edit_name" name="name" placeholder="Your Name"  value="$!{detailedUser.nick}" />
+            #else
+            	<input type="text" id="edit_name" name="name" placeholder="Your Name" />
+            #end
+            <textarea type="text" rows="2" id="edit_street" name="street" placeholder="Street Name & NO., Building Name, Apartment No (in English)">$!{address.street}</textarea>
+            #if($!{address})
+            	<input type="text" id="edit_city" name="city" placeholder="City" value="$!{address.city}" />
+            #else
+            	<input type="text" id="edit_city" name="city" placeholder="City" />
+            #end
+            <div style="position:relative">
+            	#if($!{address})
+                	<select type="text" id="edit_country" name="country" placeholder="Country" value="$!{address.countryId}">
+                #else
+                	<select type="text" id="edit_country" name="country" placeholder="Country">
+                #end 
+                #foreach($country in ${countryList})
+                	#if($!{country.id} == $!{address.countryId})
+                    	<option value="${country.id}" selected="selected">$!{country.name}</option>
+                    #else
+                    	<option value="${country.id}">$!{country.name}</option>
+                    #end
+                #end 
+                </select>
+                <i class="iconfont right_icon">&#xe606</i>
+            </div>
+
+            <div style="position:relative">
+           		#if($!{address})
+                	<select type="text" id="edit_state" name="state" placeholder="State" value="$!{address.stateId}">
+                #else
+                	<select type="text" id="edit_state" name="state" placeholder="State">
+                #end
+                
+                #foreach($country in ${countryStateMap.entrySet()})
+	                <optgroup label="$!{country.key}" id="stateOptGroup$!{country.key}" disable>
+	                	#if($!{country.value})
+		                    #foreach($state in ${country.value})
+		                    	#if ($!{state})
+		                    		#if($!{state.id} == $!{address.stateId})
+		                    			<option value="${state.id}" id="stateOpt${state.id}" selected="selected">${state.name}</option>
+		                    		#else
+		                    			<option value="${state.id}" id="stateOpt${state.id}">${state.name}</option>
+		                    		#end
+		                    	#end
+		                    #end
+		                #end
+	                </optgroup>
+	            #end
+	            
+	            </select>
+                <i class="iconfont right_icon">&#xe606</i>
+            </div>
+            
+            <div style="position:relative">
+            	#if($!{address})
+                	<input type="text" id="edit_zip" name="zip" placeholder="Zip Code"  value="$!{address.zip}" />
+                #else
+                	<input type="text" id="edit_zip" name="zip" placeholder="Zip Code" />
+                #end
+                <div class="no_zip">
+                    <i class="iconfont">&#xe60d;</i>
+                    <span>No Postal Code Needed</span>
+                </div>
+            </div>
+			
+			#if($!{detailedUser.cellphone})
+            	<input type="tel" id="edit_phone" name="phone" placeholder="Phone" value="$!{detailedUser.cellphone}" />
+            #else
+            	<input type="tel" id="edit_phone" name="phone" placeholder="Phone" />
+            #end
+            
+<!--             <div class="save_line">
+                <div class="save_btn">Save</div>
+            </div> -->
+        </form>
+
+        #if($!{showForm} == false)
+        <div class="show_address">
+        #else
+        <div class="show_address" style="display:none">
+        #end
+            <div class="address_block">
+                <div class="shipping_label">
+                    Shipping To
+                </div>
+                <div class="name_phone">
+                    <span id="name">$!{detailedUser.nick}</span>
+                    <span id="phone">$!{detailedUser.phone}</span>
+                    <span id="email" style="display:none;">$!{detailedUser.email}</span>
+                </div>
+                <div class="shipping-address">
+                    <span id="street">$!{address.street}</span>
+                    <span id="city">$!{address.city}</span>
+                    <span id="state">$!{stateName}</span>
+                    <span id="zip">$!{address.zip}</span>
+                    <span id="country">$!{countryName}</span>
+                </div>
+            </div>
+            <div class="edit_address">Edit Address</div>
+        </div>
+
+        <div class="show_order_summary">
+            <div class="toggle_line_btn clearfix">
+                <i class="iconfont cart_icon">&#xe608</i>
+                <span>Show order summary</span>
+                <i class="iconfont toggle_icon">&#xe600</i>
+            </div>
+        </div>
+
+        <div class="item_list" style="display:none">
+            #foreach( $item in $!{userCartVOList} )
+                #parse("/vm/page/trade/itemline_template.vm")
+            #end
+            <div class="up"><div class="iconfont up_icon">&#xe600</div></div>
+        </div>
+
+        <div class="price_block">
+            <div class="order_price_block">
+                <div class="price_line">
+                    <div class="line_label">Subtotal</div>
+                    <div class="line_right">
+                        <span>$!{currency}</span>
+                        <span id="subtotal">$math.roundTo(2, $!{cartTotalPrice})</span>
+                    </div>
+                </div>
+                <div class="price_line clearfix">
+                    <div class="line_label">Shipping</div>
+                    <div class="line_right" id="shipping_line">
+                        #if (0 == ${postFee})
+                            Free
+                        #else
+	                        <span>${currency}</span>
+	                        <span id="shipping_fee">$math.roundTo(2, $!{postFee})</span>
+                        #end
+                    </div>
+                </div>
+            </div>
+            
+            <div class="total_price_block">
+                <div class="total_label">TOTAL</div>
+                <div class="total_price">
+                    <span>$!{currency}</span>
+                    <span id="amount_total">$math.roundTo(2, $!{totalPrice})</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="submit_btn">Submit Order</div>
+
+        <div id="alertModal" style="top:0px;height:100%;width:100%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+            <div style="display:flex;align-items:center;justify-content:center;height:100vh;width:100vw">
+                <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:5px;">
+                    Please fill in all fields.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/common/jquery-2.2.4.min.js"></script>
+    <script src="/js/common/js.cookie.js"></script>
+    <script src="/js/common/jquery.payment.js"></script>
+    <script src="/js/common/init.js"></script>
+    <script src="/js/common/util.js"></script>
+    <script src="/js/trade_confirm.js"></script>
+
+	##{% include "../ga/body_bottom_template.html" %}
+</body>
+</html>

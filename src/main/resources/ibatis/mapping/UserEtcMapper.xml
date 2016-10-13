@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.UserEtcDao">
+	<resultMap id="UserEtcMap" type="com.subaru.maneki.model.UserEtc">
+		<id column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER" />
+		<result column="GMT_LAST_LOGIN" property="gmtLastLogin" jdbcType="TIMESTAMP" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.UserEtc" keyProperty="userId">
+		INSERT INTO user_info_etc
+		(
+		<if test="userId > 0">
+			USER_ID
+		</if>
+		<if test="phone!=null">
+			,PHONE
+		</if>
+		<if test="birthday!=null">
+			,BIRTHDAY
+		</if>
+		<if test="language!=null">
+			,LANGUAGE
+		</if>
+		<if test="countryId!=null">
+			,COUNTRY_ID
+		</if>
+		<if test="gmtLastLogin!=null">
+			,GMT_LAST_LOGIN
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test="userId > 0">
+			#{userId}
+		</if>
+		<if test="phone!=null">
+			,#{phone}
+		</if>
+		<if test="birthday!=null">
+			,#{birthday}
+		</if>
+		<if test="language!=null">
+			,#{language}
+		</if>
+		<if test="countryId!=null">
+			,#{countryId}
+		</if>
+		<if test="gmtLastLogin!=null">
+			,#{gmtLastLogin}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<select id="select" parameterType="int" resultMap="UserEtcMap">
+		SELECT *
+		FROM user_info_etc WHERE user_id = #{userId}
+	</select>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.UserEtc">
+		UPDATE user_info_etc 
+		<set>
+			<if test="userId > 0">
+				user_id = #{userId}
+			</if>
+			<if test="phone!=null">
+				,phone = #{phone}
+			</if>
+			<if test="birthday!=null">
+				,birthday = #{birthday}
+			</if>
+			<if test="language!=null">
+				,language = #{language}
+			</if>
+			<if test="countryId!=null">
+				,country_id = #{countryId}
+			</if>
+			<if test="gmtLastLogin!=null">
+				,gmt_last_login = #{gmtLastLogin}
+			</if>
+		</set>
+		WHERE user_id = #{userId}
+	</update>
+	
+</mapper>

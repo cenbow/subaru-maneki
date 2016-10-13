@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.subaru.maneki.dao.TradeProductDao">
+	<resultMap id="BaseResultMap" type="com.subaru.maneki.model.TradeProduct">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="ORDER_NUMBER" property="orderNumber" jdbcType="BIGINT" />
+		<result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
+		<result column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="ORIGINAL_PRICE" property="originalPrice"
+			jdbcType="DOUBLE" />
+		<result column="BUYED_PRICE" property="buyedPrice" jdbcType="DOUBLE" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.TradeProduct"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into trade_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderNumber != null">
+				ORDER_NUMBER,
+			</if>
+			<if test="quantity != null">
+				QUANTITY,
+			</if>
+			<if test="skuId > 0">
+				SKU_ID,
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME,
+			</if>
+			<if test="imageUrl != null">
+				IMAGE_URL,
+			</if>
+			<if test="originalPrice != null">
+				ORIGINAL_PRICE,
+			</if>
+			<if test="buyedPrice != null">
+				BUYED_PRICE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderNumber != null">
+				#{orderNumber,jdbcType=BIGINT},
+			</if>
+			<if test="quantity != null">
+				#{quantity,jdbcType=INTEGER},
+			</if>
+			<if test="skuId > 0">
+				#{skuId},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="imageUrl != null">
+				#{imageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				#{originalPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="buyedPrice != null">
+				#{buyedPrice,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.TradeProduct">
+		update trade_product
+		<set>
+			<if test="orderNumber != null">
+				ORDER_NUMBER = #{orderNumber,jdbcType=BIGINT},
+			</if>
+			<if test="quantity != null">
+				QUANTITY = #{quantity,jdbcType=INTEGER},
+			</if>
+			<if test="skuId > 0">
+				SKU_ID = #{skuId},
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="imageUrl != null">
+				IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				ORIGINAL_PRICE = #{originalPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="buyedPrice != null">
+				BUYED_PRICE = #{buyedPrice,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectByOrderNumber" resultMap="BaseResultMap"
+		parameterType="long">
+		select *
+		from trade_product
+		where
+		ORDER_NUMBER =
+		#{orderNumber,jdbcType=BIGINT}
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from
+		trade_product
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="select" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select *
+		from trade_product
+		where ID =
+		#{id,jdbcType=BIGINT}
+	</select>
+
+</mapper>

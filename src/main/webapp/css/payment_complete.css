@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1470022162_7586992.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1470022162_7586992.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1470022162_7586992.woff") format("woff"), url("//at.alicdn.com/t/font_1470022162_7586992.ttf") format("truetype"), url("//at.alicdn.com/t/font_1470022162_7586992.svg#iconfont") format("svg");
+  /* iOS 4.1- */
+}
+#payment_complete_page .status {
+  height: 180px;
+  background-color: #F1A298;
+}
+#payment_complete_page .status .status-icon {
+  position: relative;
+  top: 30px;
+  margin: 0 auto;
+  height: 70px;
+  width: 70px;
+}
+#payment_complete_page .status .status-icon .iconfont {
+  font-family: "iconfont";
+  font-size: 70px;
+  font-style: normal;
+  color: #FFFFFF;
+}
+#payment_complete_page .status .status-text {
+  position: relative;
+  top: 55px;
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  color: #FFFFFF;
+  font-weight: 300;
+}
+#payment_complete_page .order-info {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#payment_complete_page .order-info .order-summary {
+  height: 50px;
+  margin-left: -15px;
+  margin-right: -15px;
+  border-bottom: 1px solid #F2F2F2;
+}
+#payment_complete_page .order-info .order-summary .order-id {
+  margin-left: 15px;
+  float: left;
+  height: 50px;
+}
+#payment_complete_page .order-info .order-summary .order-id span {
+  display: table-cell;
+  height: inherit;
+  vertical-align: middle;
+  text-align: left;
+  color: #666666;
+}
+#payment_complete_page .order-info .order-summary .amount-total {
+  margin-right: 15px;
+  float: right;
+  height: 50px;
+}
+#payment_complete_page .order-info .order-summary .amount-total span {
+  display: table-cell;
+  height: inherit;
+  vertical-align: middle;
+  text-align: left;
+}
+#payment_complete_page .order-info .order-summary .amount-total .title {
+  color: #333333;
+  font-weight: 300;
+}
+#payment_complete_page .order-info .order-summary .amount-total .value {
+  color: red;
+  font-weight: 300;
+}
+#payment_complete_page .order-info .delivery-wrap {
+  clear: both;
+}
+#payment_complete_page .order-info .delivery-wrap .shipping-address {
+  padding-bottom: 17px;
+}
+#payment_complete_page .order-info .delivery-wrap .shipping-address .section-title {
+  display: block;
+  color: #999999;
+  font-weight: 300;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+#payment_complete_page .order-info .delivery-wrap .shipping-address .name-phone {
+  display: block;
+  color: #333333;
+  font-weight: 300;
+}
+#payment_complete_page .order-info .delivery-wrap .shipping-address .address {
+  font-size: 12px;
+  color: #333333;
+  font-weight: 300;
+}
+#payment_complete_page .order-info .delivery-wrap .delivery-info {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#payment_complete_page .order-info .delivery-wrap .delivery-info .table tr {
+  height: 50px;
+}
+#payment_complete_page .order-info .delivery-wrap .delivery-info .table th {
+  color: #999999;
+  font-weight: 300;
+  width: 40%;
+  vertical-align: middle;
+  padding-left: 15px;
+  border: 1px solid #F2F2F2;
+}
+#payment_complete_page .order-info .delivery-wrap .delivery-info .table td {
+  color: #333333;
+  font-weight: 300;
+  padding-left: 30px;
+  vertical-align: middle;
+  border: 1px solid #F2F2F2;
+}
+#payment_complete_page .order-info .arrive-date {
+  color: #333333;
+  font-weight: 300;
+  height: 50px;
+}
+#payment_complete_page .order-info .arrive-date .date {
+  color: red;
+}
+
+/*# sourceMappingURL=payment_complete.css.map */

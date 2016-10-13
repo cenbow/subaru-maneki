@@ -1,0 +1,281 @@
+.oe_website_sale {
+    padding-top: 10px;
+    background: #FFFFFF;
+}
+
+#wrap {
+    .title {
+        text-align: center;
+        text-size:18px;
+        color:#666666;
+        padding:10px;
+    }
+}
+
+#products_grid {
+  padding-left: 5px;
+  padding-right: 5px;
+  #scroll_content {
+      .oe_product:first-of-type, .oe_product:nth-of-type(2) {
+          top: 2px;
+      }
+  }
+  .col-xs-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+    .oe_product {
+        margin-bottom: 12px;
+    }
+  }
+  background: white;
+  .jscroll-inner {
+    overflow: hidden;
+	.infinite_scroll_next {
+	  text-align: center;
+	  clear: both;
+	  margin-bottom: 20px;
+	}
+  }
+  .jscroll-added {
+    overflow: hidden;
+	width: 100%;
+	.jscroll-loading {
+	  text-align: center;
+	  img {
+		height: 100px;
+	  }
+	}
+  }
+}
+
+.no_more_data {
+  padding-left: 10px;
+}
+
+.oe_structure{
+    display: table-row;
+    height: 1px;
+}
+
+.banner {
+    padding: 0px;
+    margin: 0px;
+    //padding-bottom: 15px;
+  img {
+    width: 100%;
+  }
+}
+
+// Import iconfont
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1469686158_533528.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1469686158_533528.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1469686158_533528.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1469686158_533528.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1469686158_533528.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+    font-family: 'iconfont';
+    font-weight: bold;
+}
+// Act as background
+hr {
+    margin: 0;
+    width: 100%;
+    border-top: 8px solid #F2F2F2;
+}
+
+.left {
+    position: relative;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+}
+
+.Card {
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+    .header {
+        position: relative;
+        width:97%;
+        margin: 0 1.5%;
+        padding: 15px 0px 10px 0px;
+        .more {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 25px;
+        }
+        .subcatg {
+            color: #999;
+            line-height: 25px;
+            font-size: 14px;
+            padding-left: 7px;
+            border-left: 2px solid #F15440;
+            vertical-align: middle;
+        }
+    }
+    .itemCard {
+        position:relative;
+        float:left;
+        width:18.2%;
+        margin-left:1.5%;
+        margin-bottom:12px;
+        .imgContainer {
+             box-shadow: 0px 0px 2px #e0e0e0;
+             width:100%;
+             padding-bottom:100%;
+             background-size: cover;
+             background-position: center;
+             .link {
+                position: absolute;
+                width: 100%;
+                padding-bottom: 100%;
+                opacity: 0;
+             }
+        }
+        .textContainer {
+            width:100%;
+            padding: 5px;
+            .textRow {
+                position: relative;
+                 .price {
+                     color: #333333;
+                     font-size:16px;
+                 }
+                 .price-long {
+                     font-size: 15px;
+                 }
+                 .price-mega {
+                     font-size: 12px;
+                 }
+                 .priceOff {
+                     font-size: 12px;
+                     color: #F15440;
+                 }
+                 .cPrice {
+                     font-size: 10px;
+                     color: #999999;
+                 }
+            }
+            .secondRow {
+                line-height: 10px;
+            }
+        }
+    }
+}
+
+.cb_banner {
+  img {
+    width: 100%;
+  }
+}
+
+// Mimic Bootstrap Grid Layout
+@media (max-width: 1000px) {
+    .Card {
+        .header {
+            width:95%;
+            margin: 0 2.5%;
+        }
+        .itemCard {
+            width:30%;
+            margin-left:2.5%;
+        }
+    }
+}
+@media (max-width: 600px) {
+    .Card {
+        .header {
+            width:92%;
+            margin: 0 4%;
+        }
+        .itemCard {
+            width:44%;
+            margin-left:4%;
+        }
+    }
+}
+
+#tutorial {
+  position: relative;
+  z-index: 500;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+
+  .circle {
+    display: none;
+  }
+
+  .base {
+    position: absolute;
+    width: 0;
+    top: 3px;
+    left: -3px;
+    border-radius: 50%;
+  }
+
+  .bottom {
+    @extend .base;
+    box-shadow: #ccc 0px 0px 0px 5px;
+    border: 1px solid #ccc;
+  }
+
+  .point {
+    @extend .base;
+    border: 1px solid #0528FF;
+    background-color: #0528FF;
+    animation: mymove 2.5s infinite;
+  }
+
+  .top {
+    @extend .base;
+    box-shadow: #0582FF 0px 0px 0px 3px;
+    border: 1px solid #0582FF;
+  }
+
+  .line {
+    display: none;
+    position: absolute;
+    top: 3px;
+    left: -3px;
+    border-top: 1px solid #0582FF;
+    width: 110px;
+  }
+  .note {
+    display: none;
+    position: absolute;
+    left: 107px;
+    top: -70px;
+    background-color: #FFFCFC;
+    color: #333;
+    box-shadow: rgba(173,210,247,0.48) 0px 0px 7px 1px;
+    padding: 16px 20px;
+    text-align: center;
+    width: 170px;
+    border: 1px solid #FFFCFC;
+    border-radius: 3px;
+
+    p {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .oh_i_see {
+      background-color: #FF9B1B;
+      width: 77px;
+      line-height: 29px;
+      color: #fff;
+      box-shadow: rgba(255,168,147,0.55) 0px 0px 7px 1px;
+      text-align: center;
+      border: 1px solid #FF9B1B;
+      border-radius: 3px;
+      margin: 0 auto;
+    }
+  }
+}

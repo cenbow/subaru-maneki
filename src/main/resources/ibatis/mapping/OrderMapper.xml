@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.subaru.maneki.dao.OrderDao">
+
+	<resultMap id="BaseResultMap" type="com.subaru.maneki.model.Order">
+		<id column="ORDER_NUMBER" property="orderNumber" jdbcType="BIGINT" />
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="SHIPPING_ID" property="shippingId" jdbcType="BIGINT" />
+		<result column="TRADE_STATUS" property="tradeStatus" jdbcType="SMALLINT" />
+		<result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+		<result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+		<result column="PAY_TYPE" property="payType" jdbcType="SMALLINT" />
+		<result column="GMT_PAIED" property="gmtPaied" jdbcType="TIMESTAMP" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+		<result column="IS_DELETE" property="isDelete" jdbcType="SMALLINT" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.Order">
+		insert into trade_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderNumber != null">
+				ORDER_NUMBER,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="shippingId != null">
+				SHIPPING_ID,
+			</if>
+			<if test="tradeStatus != null">
+				TRADE_STATUS,
+			</if>
+			<if test="amount != null">
+				AMOUNT,
+			</if>
+			<if test="currency != null">
+				CURRENCY,
+			</if>
+			<if test="payType != null">
+				PAY_TYPE,
+			</if>
+			<if test="gmtPaied != null">
+				GMT_PAIED
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderNumber != null">
+				#{orderNumber,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="shippingId != null">
+				#{shippingId,jdbcType=SMALLINT},
+			</if>
+			<if test="tradeStatus != null">
+				#{tradeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DOUBLE},
+			</if>
+			<if test="currency != null">
+				#{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=SMALLINT},
+			</if>
+			<if test="gmtPaied != null">
+				#{gmtPaied,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Order">
+		update trade_order
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="shippingId != null">
+				SHIPPING_ID = #{shippingId,jdbcType=BIT},
+			</if>
+			<if test="tradeStatus != null">
+				TRADE_STATUS = #{tradeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DOUBLE},
+			</if>
+			<if test="currency != null">
+				CURRENCY = #{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				PAY_TYPE = #{payType,jdbcType=SMALLINT},
+			</if>
+			<if test="gmtPaied != null">
+				GMT_PAIED = #{gmtPaied,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				IS_DELETE = #{isDelete,jdbcType=SMALLINT}
+			</if>
+		</set>
+		where ORDER_NUMBER = #{orderNumber,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByOrderNumber" parameterType="java.lang.Long">
+		delete from trade_order
+		where ORDER_NUMBER = #{orderNumber,jdbcType=BIGINT}
+	</delete>
+
+	<select id="selectByOrderNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		*
+		from trade_order
+		where ORDER_NUMBER = #{orderNumber,jdbcType=BIGINT} and IS_DELETE = 0
+	</select>
+
+	<select id="selectByTime" resultMap="BaseResultMap"
+			parameterType="java.sql.Timestamp">
+		select *
+		from trade_order
+		where GMT_CREATE &gt;=#{startTime} and GMT_CREATE &lt;=#{endTime} and IS_DELETE = 0
+		ORDER BY GMT_CREATE
+		desc
+		<if test="start >=0">
+			<if test="limit >0">
+				limit ${start},${limit}
+			</if>
+		</if>
+	</select>
+
+	<select id="countByTime" resultType="int"
+			parameterType="java.sql.Timestamp">
+		select count(ORDER_NUMBER)
+		from trade_order
+		where GMT_CREATE &gt;=#{startTime} and GMT_CREATE &lt;=#{endTime} and IS_DELETE = 0
+	</select>
+
+	<select id="countByUserId" resultType="int" parameterType="int">
+		select count(ORDER_NUMBER)
+		from trade_order
+		where user_id = #{userId} and IS_DELETE = 0
+	</select>
+
+	<select id="countPaiedByUserId" resultType="int" parameterType="int">
+		select count(ORDER_NUMBER)
+		from trade_order
+		where user_id = #{userId} and GMT_PAIED &lt;&gt;'' and PAY_TYPE &lt;&gt;'' and IS_DELETE = 0
+	</select>
+
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="int">
+		select *
+		from trade_order
+		where user_id = #{userId} and IS_DELETE = 0
+		ORDER BY GMT_CREATE
+		desc
+		<if test="start >=0">
+			<if test="limit >0">
+				limit ${start},${limit}
+			</if>
+		</if>
+	</select>
+
+	<select id="selectNeedToPush" resultMap="BaseResultMap">
+		select *
+		from trade_order
+		where is_pushed = 0 and (PAY_TYPE = 3 or (PAY_TYPE != 3 and GMT_PAIED is not null));
+	</select>
+	
+</mapper>

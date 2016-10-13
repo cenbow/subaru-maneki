@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SkuEtcDao">
+	<resultMap id="SKUEtcMap" type="com.subaru.maneki.model.SkuEtc">
+		<id column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="PLATFORM_PRICE" property="platformPrice" jdbcType="VARCHAR" />
+		<result column="PLATFORM_URL" property="platformUrl" jdbcType="VARCHAR" />
+		<result column="PLATFORM_PRICE_DETAILS" property="platformPriceDetails" jdbcType="VARCHAR" />
+		<result column="PLATFORM_NAME" property="platformName" jdbcType="VARCHAR" />
+		<result column="URL_OF_1688" property="urlOf1688" jdbcType="VARCHAR" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="insert" parameterType="com.subaru.maneki.model.SkuEtc"
+		keyProperty="skuId">
+		INSERT INTO product_sku_etc
+		(
+		SKU_ID,
+		PLATFORM_PRICE,
+		PLATFORM_URL,
+		PLATFORM_PRICE_DETAILS,
+		PLATFORM_NAME,
+		URL_OF_1688
+		<if test="gmtCreate!=null">
+			,gmt_create
+		</if>
+		<if test="gmtUpdate!=null">
+			,gmt_update
+		</if>
+		)
+		VALUES
+		(
+		#{skuId},
+		#{platformPrice},
+		#{platformUrl},
+		#{platformPriceDetails},
+		#{platformName},
+		#{urlOf1688}
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.SkuEtc">
+		UPDATE product_sku_etc
+		<set>
+			SKU_ID = #{skuId},
+			PLATFORM_PRICE = #{platformPrice},
+			PLATFORM_URL = #{platformUrl},
+			PLATFORM_PRICE_DETAILS = #{platformPriceDetails},
+			PLATFORM_NAME = #{platformName},
+			URL_OF_1688 = #{urlOf1688}
+	  	<if test="gmtCreate!=null">
+	  		,gmt_create=#{gmtCreate}
+	  	</if>
+	  	<if test="gmtUpdate!=null">
+	  		,gmt_update=#{gmtUpdate}
+	  	</if>
+		</set>
+		WHERE SKU_ID = #{skuId}
+	</update>
+
+	<update id="delete" parameterType="int">
+		DELETE FROM product_sku_etc WHERE SKU_ID = #{skuId}
+	</update>
+
+	<select id="selectBySkuId" parameterType="int" resultMap="SKUEtcMap">
+		SELECT *
+		FROM product_sku_etc WHERE SKU_ID = #{skuId}
+	</select>
+
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.UserOAuthDao">
+	<resultMap id="UserOAuthMap" type="com.subaru.maneki.model.UserOAuth">
+		<id column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="OAUTH_UID" property="oauthUid" jdbcType="VARCHAR" />
+		<result column="OAUTH_PROVIDER" property="oauthProvider" jdbcType="VARCHAR" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.UserOAuth" keyProperty="userId">
+		INSERT INTO user_oauth
+		(
+		<if test="userId > 0">
+			USER_ID
+		</if>
+		<if test="oauthUid!=null">
+			,OAUTH_UID
+		</if>
+		<if test="oauthProvider!=null">
+			,OAUTH_PROVIDER
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test="userId > 0">
+			#{userId}
+		</if>
+		<if test="oauthUid!=null">
+			,#{oauthUid}
+		</if>
+		<if test="oauthProvider!=null">
+			,#{oauthProvider}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+
+	<select id="select" parameterType="int" resultMap="UserOAuthMap">
+		SELECT *
+		FROM user_oauth WHERE user_id = #{userId}
+	</select>
+
+	<select id="selectByOAuthUid" parameterType="string" resultMap="UserOAuthMap">
+		SELECT *
+		FROM user_oauth WHERE oauth_uid = #{oauthUid}
+	</select>
+
+	<update id="update" parameterType="com.subaru.maneki.model.UserOAuth">
+		UPDATE user_oauth
+		<set>
+			<if test="userId > 0">
+				USER_ID = #{userId}
+			</if>
+			<if test="oauthUid!=null">
+				,OAUTH_UID = #{oauthUid}
+			</if>
+			<if test="oauthProvider!=null">
+				,OAUTH_PROVIDER = #{oauthProvider}
+			</if>
+		</set>
+		WHERE user_id = #{userId}
+	</update>
+
+</mapper>

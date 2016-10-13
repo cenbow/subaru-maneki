@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.CountryStateDao">
+	<resultMap id="CountryStateMap" type="com.subaru.maneki.model.CountryState">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.CountryState"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO user_country_state
+		(
+		<if test="countryId > 0">
+			COUNTRY_ID
+		</if>
+		<if test="code != null">
+			,CODE
+		</if>
+		<if test="name != null">
+			,NAME
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test = "countryId > 0">
+			#{countryId}
+		</if>
+		<if test="code != null">
+			,#{code}
+		</if>
+		<if test="name != null">
+			,#{name}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.CountryState">
+		UPDATE user_country_state
+		<set>
+			<if test="countryId > 0">
+				COUNTRY_ID = #{countryId}
+			</if>
+			<if test="code  != null">
+				,CODE = #{code}
+			</if>
+			<if test="name != null">
+				,NAME = #{name}
+			</if>
+			<if test="gmtCreate!=null">
+				,GMT_CREATE = #{gmtCreate} 
+			</if>
+			<if test="gmtUpdate!=null">
+				,GMT_UPDATE = #{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM user_country_state WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="CountryStateMap">
+		SELECT * FROM user_country_state WHERE ID = #{id}
+	</select>
+	
+	<select id="selectByCountryId" parameterType="int" resultMap="CountryStateMap">
+		SELECT * FROM user_country_state WHERE COUNTRY_ID = #{countryId}
+	</select>
+	
+	<select id="selectByCountryIdList" parameterType="list" resultMap="CountryStateMap">
+		SELECT * FROM user_country_state WHERE ID in 
+		<foreach item = "item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectByName" parameterType="int" resultMap="CountryStateMap">
+		SELECT * FROM user_country_state WHERE NAME = #{name}
+	</select>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.PropViewDao">
+	<resultMap id="PropViewMap" type="com.subaru.maneki.model.PropView">
+		<id column="SPU_ID" property="spuId" jdbcType="BIGINT" />
+		<result column="SPU_PROP_JSON" property="spuPropJson" jdbcType="VARCHAR" />
+		<result column="SKU_PROP_JSON" property="skuPropJson" jdbcType="VARCHAR" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.PropView" keyProperty="spuId">
+		INSERT INTO product_prop_view (
+		SPU_ID
+		<if test="spuPropJson != null">
+			,SPU_PROP_JSON
+		</if>
+		<if test="skuPropJson != null">
+			,SKU_PROP_JSON
+		</if>
+		<if test="gmtCreate != null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate != null">
+			,GMT_UPDATE
+		</if>
+		)
+		values (
+		#{spuId}
+		<if test="spuPropJson != null">
+			,#{spuPropJson}
+		</if>
+		<if test="skuPropJson != null">
+			,#{skuPropJson}
+		</if>
+		<if test="gmtCreate != null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate != null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.PropView">
+		UPDATE product_prop_view
+		<set>
+			<if test="spuId > 0">
+				SPU_ID = #{spuId},
+			</if>
+			<if test="spuPropJson != null">
+				SPU_PROP_JSON = #{spuPropJson},
+			</if>
+			<if test="skuPropJson != null">
+				SKU_PROP_JSON = #{skuPropJson},
+			</if>
+			<if test="gmtCreate != null">
+				GMT_CREATE = #{gmtCreate},
+			</if>
+			<if test="gmtUpdate != null">
+				GMT_UPDATE = #{gmtUpdate},
+			</if>
+		</set>
+		WHERE SPU_ID = #{spuId}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_prop_view where SPU_ID = #{spuId}
+	</delete>
+	
+	<select id="select" parameterType="int" resultMap="PropViewMap">
+		SELECT * FROM product_prop_view WHERE SPU_ID=#{spuId}
+	</select>
+	
+</mapper>

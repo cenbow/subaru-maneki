@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.WishlistDao">
+	<resultMap id="WishlistMap" type="com.subaru.maneki.model.Wishlist">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="SPU_ID" property="spuId" jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.Wishlist"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO product_wishlist
+		(
+		<if test="userId > 0">
+			USER_ID
+		</if>
+		<if test="spuId > 0">
+			,SPU_ID
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test = "userId > 0">
+			#{userId}
+		</if>
+		<if test="spuId > 0">
+			,#{spuId}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.Wishlist">
+		UPDATE product_wishlist
+		<set>
+			<if test="userId > 0">
+				USER_ID = #{userId}
+			</if>
+			<if test="spuId > 0">
+				,SPU_ID = #{spuId}
+			</if>
+			<if test="gmtCreate!=null">
+				,GMT_CREATE = #{gmtCreate} 
+			</if>
+			<if test="gmtUpdate!=null">
+				,GMT_UPDATE = #{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}		
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_wishlist WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="WishlistMap">
+		SELECT * FROM product_wishlist WHERE ID = #{id}
+	</select>
+	
+	<select id="selectByUserId" parameterType="int" resultMap="WishlistMap">
+		SELECT * FROM product_wishlist WHERE USER_ID = #{userId}
+	</select>
+
+	<select id="selectBySpuId" parameterType="int" resultMap="WishlistMap">
+		SELECT * FROM product_wishlist WHERE SPU_ID = #{spuId}
+	</select>
+
+</mapper>

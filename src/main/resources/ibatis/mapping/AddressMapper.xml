@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.AddressDao">
+	<resultMap id="AddressMap" type="com.subaru.maneki.model.Address">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER" />
+		<result column="STATE_ID" property="stateId" jdbcType="INTEGER" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="STREET" property="street" jdbcType="VARCHAR" />
+		<result column="ZIP" property="zip" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT" property="isDefault" jdbcType="BOOLEAN" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.Address"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO user_address
+		(
+		<if test="countryId > 0">
+			COUNTRY_ID
+		</if>
+		<if test="stateId > 0">
+			,STATE_ID
+		</if>
+		<if test="city != null">
+			,CITY
+		</if>
+		<if test="street != null">
+			,STREET
+		</if>
+		<if test="zip != null">
+			,ZIP
+		</if>
+		<if test="isDefault != null">
+			,IS_DEFAULT
+		</if>
+		)
+		VALUES
+		(
+		<if test = "countryId > 0">
+			#{countryId}
+		</if>
+		<if test = "stateId > 0">
+			,#{stateId}
+		</if>
+		<if test="city != null">
+			,#{city}
+		</if>
+		<if test="street != null">
+			,#{street}
+		</if>
+		<if test="zip != null">
+			,#{zip}
+		</if>
+		<if test="isDefault != null">
+			,#{isDefault}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Address">
+		UPDATE user_address
+		<set>
+			<if test="countryId > 0">
+				COUNTRY_ID = #{countryId}
+			</if>
+			<if test="stateId > 0">
+				,STATE_ID = #{stateId}
+			</if>
+			<if test="city != null">
+				,CITY = #{city}
+			</if>
+			<if test="street != null">
+				,STREET = #{street}
+			</if>
+			<if test="zip != null">
+				,ZIP = #{zip}
+			</if>
+			<if test="isDefault != null">
+				,IS_DEFAULT = #{isDefault}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM user_address WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="AddressMap">
+		SELECT * FROM user_address WHERE ID = #{id}
+	</select>
+	
+</mapper>

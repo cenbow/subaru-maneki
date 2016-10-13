@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.UserAddressRelationDao">
+	<resultMap id="UserAddressMap" type="com.subaru.maneki.model.UserAddressRelation">
+		<id column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<id column="ADDRESS_ID" property="addressId" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.UserAddressRelation"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user_address_r (
+		USER_ID, ADDRESS_ID
+		<if test="gmtCreate != null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate != null">
+			,GMT_UPDATE
+		</if>
+		)
+		values (
+		#{userId}, #{addressId}
+		<if test="gmtCreate != null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate != null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE user_address_r
+		<set>
+			<if test="userId > 0">
+				USER_ID = #{userId}
+			</if>
+			<if test="addressId > 0">
+				,ADDRESS_ID = #{addressId}
+			</if>
+
+		</set>
+		WHERE USER_ID = #{oldUserId} AND ADDRESS_ID = #{oldAddressId};
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM user_address_r WHERE USER_ID = #{userId} AND ADDRESS_ID = #{addressId}
+	</delete>
+	
+	<select id = "select" resultMap = "UserAddressMap">
+		SELECT * FROM user_address_r WHERE USER_ID=#{userId} AND ADDRESS_ID=#{addressId}
+	</select>
+	
+	<select id = "selectByUserId" resultMap = "UserAddressMap">
+		SELECT * FROM user_address_r WHERE USER_ID=#{userId}
+	</select>
+</mapper>

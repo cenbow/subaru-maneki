@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.CountryDao">
+	<resultMap id="CountryMap" type="com.subaru.maneki.model.Country">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
+		<result column="ABBR" property="abbr" jdbcType="VARCHAR" />
+		<result column="RATE" property="rate" jdbcType="DOUBLE" />
+		<result column="DOLLAR_THRESHOLD" property="dollarThreshold" jdbcType="DOUBLE" />
+		<result column="DELIVERY_FEE" property="deliveryFee" jdbcType="DOUBLE" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.Country"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO user_country
+		(
+		<if test="name != null">
+			NAME
+		</if>
+		<if test="currencyUnit != null">
+			,CURRENCY_UNIT
+		</if>
+		<if test="abbr != null">
+			,ABBR
+		</if>
+		<if test="rate > 0">
+			,RATE
+		</if>
+		<if test="dollarThreshold >= 0">
+			,DOLLAR_THRESHOLD
+		</if>
+		<if test="deliveryFee >= 0">
+			,DELIVERY_FEE
+		</if>
+		<if test="gmtCreate!=null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate!=null">
+			,GMT_UPDATE
+		</if>
+		)
+		VALUES
+		(
+		<if test = "name != null">
+			#{name}
+		</if>
+		<if test="currencyUnit != null">
+			,#{currencyUnit}
+		</if>
+		<if test="abbr != null">
+			,#{abbr}
+		</if>
+		<if test="rate > 0">
+			,#{rate}
+		</if>
+		<if test="dollarThreshold >= 0">
+			,#{dollarThreshold}
+		</if>
+		<if test="deliveryFee >= 0">
+			,#{deliveryFee}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Country">
+		UPDATE user_country
+		<set>
+			<if test="name != null">
+				NAME = #{name}
+			</if>
+			<if test="currencyUnit != null">
+				,CURRENCY_UNIT = #{currencyUnit}
+			</if>
+			<if test="abbr != null">
+				,ABBR = #{abbr}
+			</if>
+			<if test="rate > 0">
+				,RATE = #{rate}
+			</if>
+			<if test="dollarThreshold >= 0">
+				,DOLLAR_THRESHOLD = #{dollarThreshold}
+			</if>
+			<if test="deliveryFee >= 0">
+				,DELIVERY_FEE = #{deliveryFee}
+			</if>
+			<if test="gmtCreate!=null">
+				,GMT_CREATE = #{gmtCreate} 
+			</if>
+			<if test="gmtUpdate!=null">
+				,GMT_UPDATE = #{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM user_country WHERE ID = #{id}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="CountryMap">
+		SELECT * FROM user_country WHERE ID = #{id}
+	</select>
+	
+	<select id="selectByAbbr" parameterType="string" resultMap="CountryMap">
+		SELECT * FROM user_country WHERE ABBR = #{abbr}
+	</select>
+
+	<select id="selectByName" parameterType="string" resultMap="CountryMap">
+		SELECT * FROM user_country WHERE NAME = #{name}
+	</select>
+
+</mapper>

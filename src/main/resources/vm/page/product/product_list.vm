@@ -1,0 +1,85 @@
+#foreach($product in ${products})
+<div style="position:relative">
+    <div class="oe_product">
+        <div class="image_region" id="${product.spuId}">
+            <div class="oe_product_image">
+            
+            	#set($productType=${product.type})
+            	#if(!$!{productType})
+            		#set($productType="none")
+            	#end
+            	#set($pos=${product.pos})
+            	#if(!$!{pos})
+            		#set($pos=0)
+            	#end
+            	
+                #if(false == ${isFromDetail})
+                    <a href="/product/${product.spuId}?t=$!{productType}&p=$!{pos}" target="_blank">
+                #else
+                    <a href="/product/${product.spuId}?t=$!{productType}&p=$!{pos}" target='_self'>
+                #end
+                    <img id="img_${product.spuId}" class="img img-responsive lazy" src="/img/lazy_load.png" data-src="$!{product.imageUrl}"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="contain">
+            <div class="row">
+                #if(${countryCode} == 'ae' || ${countryCode} == 'eg' || ${countryCode} == 'sa' || ${countryCode} == 'qa')
+                    <div class="price-long pull-left">
+                        <span>
+                            ${currency} <span class="oe_currency_value">$math.roundTo(2, ${product.price})</span>
+                        </span>
+                    </div>
+                #elseif($countryCode == 'lb')
+                    <div class="price-mega pull-left">
+                        <span>
+                            ${currency} <span class="oe_currency_value">$math.roundTo(2, ${product.price})</span>
+                        </span>
+                    </div>
+                #else
+                    <div class="price pull-left">
+                        <span>
+                            ${currency} <span class="oe_currency_value">$math.roundTo(2, ${product.price})</span>
+                        </span>
+                    </div>
+                #end
+                <div class="off_price pull-right">
+                    <div>
+                        ${product.saving}% off
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="c_price">
+                    ${product.platformName}
+                    <div class="mr8" style="white-space: nowrap;">
+                        &nbsp;${currency} <span class="oe_currency_value">$math.roundTo(2, $!{product.platformPrice})</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+
+#if(false == ${isFromDetail})
+    #if(false == $products.isEmpty())
+        <div class="infinite_scroll_next" style="hidden">
+        	${nextPageParam}
+            <a href="?${nextPageParam}"></a>
+        </div>
+    #else
+        <div class="infinite_scroll_next" style="hidden">
+            #if(!${searchNoResult})
+            	<span>No more products...</span>
+            #else
+            	<span>Your search did not yield any results!</span>
+            #end
+        </div>
+    #end
+
+    #if(${isAppendPageReq})
+        <div id="append_page_url" style="display: none">?${lastPageParam}</div>
+    #end
+#end

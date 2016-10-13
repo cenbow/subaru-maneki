@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.subaru.maneki.dao.CartDao">
+	<resultMap id="TradeCartMap" type="com.subaru.maneki.model.Cart">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="sku_id" property="skuId" jdbcType="BIGINT" />
+		<result column="quantity" property="quantity" jdbcType="BIGINT" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_update" property="gmtCreate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.Cart"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into trade_cart (
+		sku_id,
+		user_id,
+		quantity
+		)
+		values
+		(#{skuId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{quantity,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Cart">
+		update trade_cart
+		<set>
+			<if test="skuId > 0">
+				sku_id = #{skuId,jdbcType=BIGINT},
+			</if>
+			<if test="userId > 0">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="quantity>0">
+				quantity=#{quantity},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="delete" parameterType="int">
+		DELETE FROM trade_cart
+		where id=#{id}
+	</update>
+
+	<update id="deleteByUserId" parameterType="int">
+		DELETE FROM trade_cart
+		where user_id = #{userId,jdbcType=BIGINT}
+	</update>
+
+	<update id="deleteByUserIdAndSkuId" parameterType="int">
+		DELETE FROM trade_cart
+		where user_id = #{userId,jdbcType=BIGINT} and
+		sku_id=#{skuId}
+	</update>
+
+	<select id="select" resultMap="TradeCartMap" parameterType="int">
+		select *
+		from trade_cart
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByUserIdAndSkuId" resultMap="TradeCartMap" parameterType="int">
+
+		select *
+		from trade_cart
+		where user_id = #{userId} and
+		sku_id = #{skuId}
+	</select>
+
+	<select id="countUserCart" resultType="int" parameterType="int">
+		select coalesce(sum(QUANTITY), 0)
+		from trade_cart
+		where user_id = #{userId}
+	</select>
+	
+	<select id="countCartSkus" resultType="int" parameterType="int">
+		select coalesce(sum(QUANTITY), 0)
+		from trade_cart
+		where sku_id = #{skuId}
+	</select>
+	
+	<select id="selectUserCart" resultMap="TradeCartMap" parameterType="int">
+		select *
+		from trade_cart
+		where user_id = #{userId}
+	</select>
+
+</mapper>

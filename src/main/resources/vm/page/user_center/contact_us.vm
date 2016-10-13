@@ -1,0 +1,69 @@
+<div class="contact_us">
+    <div class="partner_info">
+        <div class="row">
+            <div class="col-left">
+                <div class="vertical">
+                    <li class="li_style"></li>
+                </div>
+            </div>
+            <div class="col-right">
+                <a href="/info/shipping" onclick="notify_shipping()">Shipping</a>
+            </div>
+            <i class="iconfont">&#xe606</i>
+        </div>
+
+        <div class="row">
+            <div class="col-left">
+                <div class="vertical">
+                    <li class="li_style"></li>
+                </div>
+            </div>
+            <div class="col-right">
+                <a href="/info/return" onclick="notify_return()">Return</a>
+            </div>
+            <i class="iconfont">&#xe606</i>
+        </div>
+
+        <div class="row">
+            <div class="col-left">
+                <div class="vertical">
+                    <li class="li_style"></li>
+                </div>
+            </div>
+            <div class="col-right">
+                <a href="/info/about_us" onclick="notify_about_us()">About Us</a>
+            </div>
+            <i class="iconfont">&#xe606</i>
+        </div>
+
+        <div class="row">
+            <div class="col-left">
+                <div class="vertical">
+                    <li class="li_style"></li>
+                </div>
+            </div>
+            <div class="col-right">
+                <a href="/info/private_policy" onclick="notify_private_policy()">Private Policy</a>
+            </div>
+            <i class="iconfont">&#xe606</i>
+        </div>
+    </div>
+
+    <div class="contact_info">
+        <div class="need_help">
+            Need Help? 
+        </div>
+        <div class="contact_text">
+            Contact Us
+        </div>
+
+        <div class="partner_mail">
+            <div class="row">
+                <div class="company_mail">
+                    <span>info@fromfactory.club</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

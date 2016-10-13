@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/info.css">
+
+    <script>
+        window.onload = function() {
+            notify_signup();
+        }
+    </script>
+</head>
+
+<body>
+	#parse("page/ga/body_top_template.vm")
+    <div class="signup_page">
+    	#if(${errorMsg})
+    		<div id="error_msg" class="alert alert-danger" >
+	        	$!{errorMsg}
+	        </div>	
+    	#end
+
+        <form class="signup_form" role="form" method="post" action="/auth/signup">
+            <fieldset class="form-group">
+                <label for="signupEmail">Your Email</label>
+                <input type="email" class="form-control" id="signupEmail" name="email" required="required" autofocus="autofocus" />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="signupEmail">Your Name</label>
+                <input type="text" class="form-control" id="signupName" name="nick" required="required" placeholder="e.g. John Doe" />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" class="form-control" id="signupPassword1" name="password" required="required"/>
+                <input type="text" class="form-control" id="signupPassword2" style="display:none;">
+                <div class="password_div">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" />Show Password
+                    </label>
+                </div>
+            </fieldset>
+
+            <button id="signup_btn" class="btn btn-primary signup_btn">Sign up</button>
+        </form>
+
+        <div class="origin_div or">
+            <hr>
+            <div class="origin_text">
+                or
+            </div>
+        </div>
+        <div class="fb_login">
+            <a class="btn btn-link">
+                <img src="/img/Facebook.png" />
+                <span class="fb_text">Log in with Facebook</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="alertModal" style="top:0px;height:100%;width:100%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;width:100vw">
+            <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:5px;">
+                Please fill in all fields.
+            </div>
+        </div>
+    </div>
+
+	<script src="/js/common/jquery-2.2.4.min.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/common/purl.js"></script>
+    <script src="/js/common/underscore-min.js"></script>
+    <script src="/js/common/util.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

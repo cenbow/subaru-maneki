@@ -1,0 +1,604 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/lib/glide.core.min.css">
+    <link rel="stylesheet" href="/css/item_card.css">
+    <link rel="stylesheet" href="/css/item_list.css">
+    <link rel="stylesheet" href="/css/details.css">
+    
+    <script>
+    function init () {
+        #if (false == $!{productPage.isAvailable})
+            $('#add_to_cart_btn').click(function () {
+                cartModalOpen();
+            });
+        #end
+        ##var attribute_info = JSON.parse(_.unescape("{{data['attribute_info_str']}}"));
+        ##var product_id_value_id_map = JSON.parse(_.unescape("{{data['product_id_value_id_map_str']}}"));
+        ##var ga_data = JSON.parse(_.unescape("{{data['ga_data_str']}}"));
+
+		var sku_name_value_map = JSON.parse('$!{productPage.skuPropJson}');
+		var product_id_value_id_map = JSON.parse('$!{productPage.skuValueJson}');
+		var ga_data = JSON.parse('$!{productPage.gaData}');
+
+        return [$!{productPage.productId}, sku_name_value_map, product_id_value_id_map, $!{productPage.imageList.size()}, ga_data]
+    }
+    </script>
+</head>
+<body ontouchstart="">
+	##{% include "../ga/body_top_template.html" %}
+
+	<div class="product_content">
+        <div class="card">
+            <div id="Slider" class="slider">
+                <div class="clearfix slider-wrap">
+                    #foreach($img in ${productPage.imageList})
+                        <div style="background:white">
+                            <img class="pic" style="background:url(${img.url})"></img>
+                        </div>
+                    #end
+                </div>
+
+                <ul class="slide-nav" style='text-align:center;'>
+                	#foreach($img in ${productPage.imageList})
+                        <li style="float:left;">
+                            <div class="dot">
+                            </div>
+                        </li>
+                    #end
+                </ul>
+            </div>
+            <div class="product_title">
+                <h6 itemprop="name">
+                    ${productPage.name}
+                </h6>
+            </div>
+            #if($!{productPage.productNo})
+                <div style="font-size:12px;text-align:center;background:white;padding-top:10px;">
+                    <span style="padding:3px 10px;background:#FBFBFB;border-radius:3px;color:#999;">
+                        Item NO. ${productPage.productNo}
+                    </span>
+                </div>
+            #end
+            <div class="product_quick_info">
+                <div>
+                    <div class="box-price">
+                        <span class="price_number">$math.roundTo(2, $!{productPage.price})</span>
+                        <br>
+                        <span class="price_currency">
+                            $!{productPage.currency}
+                        </span>
+                    </div>
+                    <div class="circle-group">
+                        <div class='circle-red'>
+                            &nbsp;$!{productPage.off}%
+                            <span><br>off</span>
+                        </div>
+                        <div class='circle-blue'>
+                            $!{productPage.soldNum}
+                            <span> sold </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            #if($!{productPage.platformPriceDetailList.size()} >= 1)
+                <div class="product_price_row" id="product_price">
+                    #foreach($item in $!{productPage.platformPriceDetailList})
+                        #if($!{velocityCount} <= 2) 
+                            <span class="price">
+                                <span class="c_price">$!{productPage.currency} $math.roundTo(2, $!{item.totalPrice})</span>
+                                <br>
+                                <span>$!{item.platform}</span>
+                            </span>
+                        #end
+                    #end
+                    <span class="price-details pull-right" style="margin-top:0">
+                            <span>COMPARE</span>
+                            <i class='iconfont' style='line-height: 40px;font-style:normal'>&#xe606;</i>
+                    </span>
+                </div>
+            #end
+            <div class="product_price_row" id="product_shipping">
+                <span class="shipping-details">
+                    Free shipping <span>on orders over ${productPage.currency} ${productPage.freeShippingPrice} </span>
+                </span>
+                <span class="price-details pull-right" style='margin-top:0'>
+                    <i class='iconfont' style='line-height: 40px;font-style:normal'>&#xe606;</i>
+                </span>
+            </div>
+            
+            #if(!($!{productPage.isAvailable}) && ($!{productPage.skuMap} != ""))
+            	<div class="product_price_row" id="product_sku">
+            		<span class="size-details">
+            			#foreach($key in ${productPage.skuMap.keySet()})
+            				#if ($!{velocityCount} < $!{productPage.skuMap.keySet().size()})
+            					<span>$!{key},</span>
+            				#else
+            					<span>$!{key}</span>
+            				#end
+            			#end
+            		</span>
+            		<span class="price-details pull-right">
+                        <span><a>Select</a></span>
+                        <i class='iconfont' style='line-height: 40px;font-style:normal'>&#xe606;</i>
+                    </span>
+            	</div>
+            #end
+        </div>
+        <hr id="product-reviews">
+        <div class="card">
+            <div id="product_reviews" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <span class="review-title">
+                        REVIEWS</span>
+                        #if($!{productPage.score})
+                            <span class="user-rating pull-right"> $!{productPage.score} <span>Ratings($!{productPage.ratingNum}) </span></span>
+                        #end
+                      </h4>
+                    </div>
+                    
+                    #if(!($!{productPage.commentList}))
+                        <div class="panel-body">
+                            <span>No reviews yet.</span>
+                        </div>
+                    #elseif ($!{productPage.commentList.size()} == 0)
+                    	<div class="panel-body">
+                            <span>No reviews yet.</span>
+                        </div>
+                    #else
+                        #foreach($item in ${productPage.commentList})
+                            #if($!{velocityCount} <= 3)
+                                <div class="panel-body" >
+                                    <span class="name">$!{item.buyer}</span>
+                                      <span class="star-rating pull-right">$!{item.rating}</span>
+                                      <br>
+                                      <span class="review-time">$!{item.time}</span>
+                                      <div class="description">
+                                          $!{item.feedback}
+                                      </div>
+                                      
+                                      #foreach($image in $!{item.imageMapList})
+                                      	<div class="user_images" >
+                                      		<img onclick='commentModalOpen("$!{image.get("b")}", "$!{item.bigImageList}", $!{velocityCount})' src="$!{image.get('s')}"></img>
+                                      	</div>
+                                      #end
+                                </div>
+                            #end
+                        #end
+                        <div class="panel-collapse collapse collapse-review">
+                            #foreach($item in ${productPage.commentList})
+                            	#if($!{velocityCount} > 3)
+                                    <div class="panel-body">
+                                        <span class="name">$!{item.buyer}</span>
+                                      <span class="star-rating pull-right">$!{item.rating}</span>
+                                      <br>
+                                      <span class="review-time">$!{item.time}</span>
+                                      <div class="description">
+                                          $!{item.feedback}
+                                      </div>
+                                      
+                                      #foreach($image in $!{item.imageMapList})
+                                      	<div class="user_images" >
+                                      		<img onclick='commentModalOpen("$!{image.get("b")}", "$!{item.bigImageList}", $!{velocityCount})' src="$!{image.get('s')}"></img>
+                                      	</div>
+                                      #end
+                                    </div>
+                                #end
+                            #end
+                        </div>
+                        #if($!{productPage.commentList} && $!{productPage.commentList.size()} > 3)
+                            <div class="panel-body view" name='#product-reviews' style="text-align: center" data-toggle="collapse" data-parent="#product_reviews" href=".collapse-review">See More</div>
+                        #end
+                    #end
+                </div>
+
+            </div>
+        </div>
+        <hr id="product-description">
+        <div id="product_description" class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <span class="description-title">
+                    DESCRIPTION
+                    </span>
+                  </h4>
+
+                </div>
+                #if($!{productPage.spuDescriptionList.size()} == 0)
+                    <div class="panel-body">
+                        <span>No descriptions yet.</span>
+                    </div>
+                #else
+                    <table class="panel-body">
+                        <tbody>
+                            #if(!(${productPage.spuDescriptionList.get(0).key}))
+                                #foreach($item in $!{productPage.spuDescriptionList})
+                                    #if($!{velocityCount} <= 1) 
+                                        <tr>
+                                            <td class="info-details">$!{item.value}</td>
+                                        </tr>
+                                    #end
+                                #end
+                            #else
+                                #foreach($item in $!{productPage.spuDescriptionList})
+                                    #if($!{velocityCount} <= 3) 
+                                        <tr>
+                                            <td class="info-type">$!{item.key}</td>
+                                            <td class="info-details">$!{item.value}</td>
+                                        </tr>
+                                    #end
+                                #end
+                            #end
+                        </tbody>
+                    </table>
+                    <div class="panel-collapse collapse collapse-description">
+                        <table class="panel-body">
+                            <tbody>
+	                            #if(!(${productPage.spuDescriptionList.get(0).key}))
+	                                #foreach($item in $!{productPage.spuDescriptionList})
+	                                    #if($!{velocityCount} > 1) 
+	                                        <tr>
+	                                            <td class="info-details">$!{item.value}</td>
+	                                        </tr>
+	                                    #end
+	                                #end
+	                            #else
+	                                #foreach($item in $!{productPage.spuDescriptionList})
+	                                    #if($!{velocityCount} > 3) 
+	                                        <tr>
+	                                            <td class="info-type">$!{item.key}</td>
+	                                            <td class="info-details">$!{item.value}</td>
+	                                        </tr>
+	                                    #end
+	                                #end
+	                            #end
+                            </tbody>
+                        </table>
+                    </div>
+                    #if($!{productPage.spuDescriptionList.size()} > 3)
+                        <div class="panel-body view" name='#product-description' style="text-align: center" data-toggle="collapse" data-parent="#product_description" href=".collapse-description">See More</div>
+                    #end
+                #end
+                </div>
+            </div>
+            <hr id="product-returns">
+            <div id="product_returns" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <span class="returns-title">
+                        SHIPPINGS & RETURNS</span>
+                      </h4>
+                    </div>
+
+                    <p class="panel-body" border="1">
+                        Shipping generally takes $!{productPage.shippingTime}. Also, please allow 1-4 days for processing.
+                        <br><br>
+                        You may return all products within 9 days after delivery.
+                    </p>
+
+                    <p class="panel-collapse collapse collapse-returns container">
+                        You can initiate a return or a refund by simply emailing info@fromfactory.club
+                        <br><br>
+                        Address for return:
+                        <br>
+                        Club Factory (N. T.)
+                        <br>
+                        27939 Ormond Ave.
+                        <br>
+                        Hayward, CA 94544
+                        <br><br>
+                        <a href='/info/return' onclick="notify_return()" style="color:#40A7F1;">DETAILS <span class="iconfont">></span></a>
+                        <br><br>
+                    </p>
+                    <div class="panel-body view" name='#product-returns' style="text-align: center" data-toggle="collapse" data-parent="#product_returns" href=".collapse-returns">See More</div>
+                  </div>
+            </div>
+            <hr>
+
+            <div id="parityModal" class="btn-div" style="z-index:250;background:rgba(0,0,0,0.3);width:100vw;height:100vh;position:fixed;top:0px;display:none">
+                <div style="top:18%;position:absolute">
+                    <div>
+                        <div class="modal-body">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>PRICE</th>
+                                    <th>SHIPPING</th>
+                                    <th>TOTAL</th>
+                                    <th>RETAILER</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>$math.roundTo(2, $!{productPage.price})</td>
+                                    <td>0.00&nbsp;<span style="color: #F14550;">*</span></td>
+                                    <td>
+                                        <span>$math.roundTo(2, $!{productPage.price})</span>
+                                    </td>
+                                    <td>Club Factory</td>
+                                </tr>
+                                #foreach($item in $!{productPage.platformPriceDetailList})
+                                    <tr>
+                                        <td>$math.roundTo(2, $!{item.basePrice})</td>
+                                        <td>$math.roundTo(2, $!{item.shippingFee})</td>
+                                        <td>$math.roundTo(2, $!{item.totalPrice})</td>
+                                        <td>
+                                            <a href="$!{item.url}">$!{item.platform}&nbsp;>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                #end
+                                </tbody>
+                            </table>
+                            <div class="last_line">
+                                <span class="star">*</span>&nbsp; Free shipping for orders over $!{productPage.currency} $!{productPage.freeShippingPrice}
+                            </div>
+                        </div>
+                        <div class="parity-close">
+                            <img src="/img/cross.svg" onclick="parityModalClose()"></img>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="cartModal" class="btn-div" style="z-index:250;background:rgba(0,0,0,0.3);width:100vw;height:100vh;position:fixed;top:0px;display:none">
+                <div id='cartBlock' style="position:absolute;bottom:81px;width:100%;">
+                    <div class="modal-header">
+                        <div class="parity-close">
+                            <img src="/img/cross_grey.svg"
+                                 onclick="cartModalClose()"></img>
+                        </div>
+                        <!--图片和价格-->
+                        <div class="pro_img">
+                            <div class="img-wrap">
+                                ##<img src="{{data['images'][0]['url']}}"/>
+                                <img src="$!{productPage.imageList.get(0).url}"/>
+                            </div>
+                            <div class="pro-title">
+                                <div style="overflow: hidden; height:40px;">$!{productPage.name}</div>
+                                <br>
+                                <span style="font-size:18px;color:#F15440;white-space: nowrap;">$!{productPage.currency}
+                                    $math.roundTo(2, $!{productPage.price})
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="error_alert none" ng-show="show_alert" style="clear:both;">
+                            <div class="select_all_skus_content">
+                                Please select a -- unselect_sku --!
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-body">
+                        <!--显示产品选项-->
+                        #foreach($key in ${productPage.skuMap.keySet()})
+                        	#set( $keyIndex = $!{velocityCount})
+            				#if ($!{productPage.skuMap.get($!{key}).size()} > 0)
+            					<ul id="sku_$!{keyIndex}">
+            						<li>
+                                        <div class="sku_name">$!{key}</div>
+                                        #if($!{key} == "Size")
+                                            #foreach($categoryId in $!{productPage.categoryIdList})
+                                            	#if ($!{categoryId} == 6 || $!{categoryId} == 7 || $!{categoryId} == 8 || $!{categoryId} == 15)
+                                            		<a class="sku_sizeChart"
+	                                                   onclick="sizeModalOpen()">Sizing Chart&nbsp;<span>></span>
+	                                                </a>
+                                            	#end
+                                            #end
+                                        #end
+                                    </li>
+                                    <li>
+                                        <div class="sku_values" data-sku-id="$!{key}">
+                                            #foreach($value in $!{productPage.skuMap.get($!{key})})
+                                            	<button onclick="attributeClick(this, $!{keyIndex}, '$!{value}', '$!{key}')" data-value-id="$!{velocityCount}" style="border-color: rgb(204, 204, 204);">
+                                                    $!{value}
+                                                </button>
+                                            #end
+                                        </div>
+                                    </li>
+            					</ul>
+            				#end
+            			#end
+                        
+                        <ul>
+                            <li>
+                                <div class="sku_name">Quantity</div>
+                            </li>
+                            <li>
+                                <div class="sku_quantity">
+                                    <span><button class='btn-div' onclick="updateQuantity('-')">-</button><span id='quantity' style="vertical-align: bottom;">1</span><button class='btn-div' onclick="updateQuantity('+')">+</button></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <hr id="bot-padding"> -->
+                </div>
+            </div>
+
+
+            <div id="commentModal" class="btn-div" style="z-index:500;background:rgba(0,0,0,1);top:0px;height:100%;width:100%;position:fixed;visibility:hidden;opacity:0;transition:all 0.45s ease">
+                <div id="commentSlider" class="slider">
+                    <div class="clearfix slider-wrap">
+                        #foreach($image in ${productPage.imageList})
+                        <div style="background:black">
+                            <img class="pic" style="background:url(${image.url})"></img>
+                        </div>
+                        #end
+                    </div>
+                    <ul class="slide-nav">
+                    </ul>
+                </div>
+            </div>
+
+            <div id="sizeModal" style="background:rgba(0,0,0,0.3);top:0px;height:100%;width:100%;position:fixed;z-index:1000;visibility:hidden;opacity:0;transition:all 0.45s ease">
+                <div class="flex-box">
+                    <div class="modal-body">
+                        <span class="modal-title" id="sortModalLabel" style="font-size:18px;">Sizing Chart</span>
+                        <button type="button" class="close" >
+                            <span class="iconfont" style="font-size:22px;">&#xe60f;</span>
+                        </button>
+                        <hr>
+                        #foreach($item in ${productPage.categoryIdList})
+                        	$item
+                        	#if($item == 7) ##clothing
+                        		#set($flag = 1)
+                        		#foreach($inner in ${productPage.categoryIdList})
+                        			#if(15 == $inner)
+                        				#set($flag = 0)
+                        				#break
+                        			#end
+                        		#end
+                        		
+                        		#if($flag == 1)
+                        			<img src="/img/1001.png">
+                        		#end
+                        	#elseif (6 == $item) ##shoes
+                        		<img src="/img/1010001.png">
+                        	#elseif (15 == $item) ##swimmer
+                        		<img src="/img/200000784.png">
+                        	#elseif (8 == $item) ##ring
+                        		<img src="/img/100006749.png">
+                        	#end
+                        #end
+                        ##{% if 1001 in data['categ_id'] and not 200000784 in data['categ_id'] %}
+                        ##{% elif 1010001 in data['categ_id']  %}
+                         ##   <img src="/img/1010001.png">
+                        ##{% elif 200000784 in data['categ_id']  %}
+                          ##  <img src="/img/200000784.png">
+                        ##{% elif 100006749 in data['categ_id']  %}
+                          ##  <img src="/img/100006749.png">
+                        ##{% end %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="alertModal" style="top:0px;height:100%;width:100%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+                <div style="display:flex;align-items:center;justify-content:center;height:100vh;width:100vw">
+                    <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:10%;">
+                        fill content here
+                    </div>
+                </div>
+            </div>
+    <hr>
+
+    #if($!{productPage.categoryIdList})
+    	#set($categoryLast = ($!{productPage.categoryIdList.size()} - 1))
+        <div id="wrap" class="js_sale">
+            <div class="oe_website_sale container">
+                <div class='row'>
+                    <div style="width:100%;font-size:14px;color:#CCCCCC;text-align:center">People Also Viewed</div>
+                    <div class="col-md-12 col-xs-12" id="products_grid" style='padding-top:10px'>
+                        <div id="scroll_content">
+                            <div class="infinite_scroll_next" style="hidden">
+                                <a href="?categoryId=$!{productPage.categoryIdList.get($categoryLast)}&fromDetail=1&spuId=$!{productPage.productId}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    #else
+        <div style="height:40px">
+        </div>
+    #end
+
+
+    <div class="footer_btns">
+            #if ($!{productPage.isAvailable})
+                <div class="out-of-stock">
+                    <span style="">Out of Stock</span>
+                </div>
+            #end
+            ##新加的购物车
+            <div class="cart_btn">
+                <a href="/cart/my_cart" onclick="notify_cart()">
+                    <i class="iconfont">&#xe608</i>
+                    <span class="cart_num">$!{productPage.cartNum}</span>
+                </a>
+            </div>
+            <div class="main_btn clearfix">
+	            <div class="left_btn">
+	                #if (false == $!{productPage.isInWishlist})
+	                <div id="btn_save_wishlist" class="save_edit" style='display:inline-block'>
+	                    <span class="helper"></span>
+	                    <span class="glyphicon glyphicon-heart-empty"></span>
+	                    <span>&nbsp;Save</span>
+	                </div>
+	                <div id="btn_view_wishlist" style='display:none;' class="save_edit">
+	                    <span class="helper"></span>
+	                    <span class="glyphicon glyphicon-heart"></span>
+	                    <span>&nbsp;Favorites</span>
+	                </div>
+	                #else
+	                <div id="btn_save_wishlist" class="save_edit" style='display:none'>
+	                    <span class="helper"></span>
+	                    <span class="glyphicon glyphicon-heart-empty"></span>
+	                    <span>&nbsp;Save</span>
+	                </div>
+	                <div id="btn_view_wishlist" style='display:inline-block' class="save_edit">
+	                    <span class="helper"></span>
+	                    <span class="glyphicon glyphicon-heart"></span>
+	                    <span>&nbsp;Favorites</span>
+	                </div>
+	                #end
+	
+	            </div>
+	            <!--当product有多个值时使用能弹出modal的按钮-->
+	            <input id="product_id_input" type="hidden" name="product_id"/>
+	
+	            <div class="right_btn">
+	                <!-- Dumb fix for unavailable product -->
+	                #if (false == $!{productPage.isAvailable})
+	                    <div id="add_to_cart_btn" class="js_check_product add_to_cart">
+	                        <span class="helper"></span>
+	                        <span>Add to Cart</span>
+	                    </div>
+	                #else
+	                    <div id="add_to_cart_btn_disabled" class="js_check_product add_to_cart" style="opacity:0.5">
+	                        <span class="helper"></span>
+	                        <span>Add to Cart</span>
+	                    </div>
+	                #end
+	            </div>
+	         </div>
+        </div>
+	</div>
+
+	<script src="/js/common/jquery-2.2.4.min.js"></script>
+	<script src="/js/common/jquery.unveil.js"></script>
+    <script src="/js/common/jquery.jscroll.min.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/common/glide.min.js"></script>
+    <script src="/js/common/underscore-min.js"></script>
+    
+    <script src="/js/common/js.cookie.js"></script>
+    <script src="/js/common/util.js"></script>
+    <script src="/js/common/init.js"></script>
+    <script src="/js/details.js"></script>
+    <script src="/js/index.js"></script>
+
+	##{% include "../ga/body_bottom_template.html" %}
+</body>
+</html>

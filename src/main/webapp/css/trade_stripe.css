@@ -1,0 +1,141 @@
+.stripe .realBackground {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 130px;
+}
+.stripe .image {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  background: #fff;
+  margin-left: -27px;
+  border-radius: 28px;
+  width: 55px;
+  height: 55px;
+}
+.stripe .image img {
+  position: absolute;
+  height: 49px;
+  width: 49px;
+  top: 3px;
+  left: 3px;
+}
+.stripe .title {
+  padding: 0 35px 13px 35px;
+}
+.stripe .title h1 {
+  font-size: 21px;
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+  top: 78px;
+  margin: 0;
+  color: #fff;
+}
+.stripe #new-payment-form {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.stripe #new-payment-form div div:nth-of-type(1) input {
+  font-size: 20px;
+}
+.stripe #new-payment-form div div:nth-of-type(2) {
+  float: left;
+  width: 48%;
+}
+.stripe #new-payment-form div div:nth-of-type(3) {
+  float: right;
+  width: 48%;
+}
+.stripe .input-block-level {
+  width: 100%;
+  border-radius: 6px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  height: 46px;
+  padding: 10px 16px;
+  color: #555;
+  -webkit-appearance: none;
+}
+.stripe .has-error .input-block-level {
+  box-shadow: 0 0 0 2px #ff6d6d;
+}
+.stripe .control-label {
+  font-weight: bold;
+  color: #000;
+  font-size: 15px;
+}
+.stripe .input-lg {
+  font-size: 15px !important;
+}
+.stripe .btn {
+  clear: both;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #3ea8e5 !important;
+  font-size: 16px !important;
+  height: 46px;
+  padding: 0 !important;
+  border: none !important;
+  margin-top: 20px;
+}
+.stripe .btn-loading {
+  display: none;
+}
+.stripe .btn-complete {
+  display: none;
+  background-color: #33cc00 !important;
+}
+.stripe .iconA {
+  position: relative;
+  background-image: url("/nsr/static/img/tick.png");
+  background-size: 100% 100%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  top: 3px;
+  margin-right: 9px;
+}
+.stripe .svg {
+  float: left;
+  margin-top: -7px;
+}
+.stripe .payment-errors {
+  color: red;
+  text-align: center;
+  display: block;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.stripe .text-muted {
+  float: right;
+}
+.stripe .text-muted .card-image, .stripe .text-muted .visa-card, .stripe .text-muted .mastercard-card, .stripe .text-muted .amex-card, .stripe .text-muted .discover-card {
+  background-size: 32px 20px;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 20px;
+  display: block;
+  margin-left: 5px;
+}
+.stripe .text-muted .visa-card {
+  background-image: url("/nsr/static/img/visa.png");
+}
+.stripe .text-muted .mastercard-card {
+  background-image: url("/nsr/static/img/mastercard.png");
+}
+.stripe .text-muted .amex-card {
+  background-image: url("/nsr/static/img/amex.png");
+}
+.stripe .text-muted .discover-card {
+  background-image: url("/nsr/static/img/discover.png");
+}
+
+/*# sourceMappingURL=stripe.css.map */

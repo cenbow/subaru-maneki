@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SkuDao">
+	<resultMap id="SKUMap" type="com.subaru.maneki.model.Sku">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="SPU_ID" property="spuId" jdbcType="BIGINT" />
+		<result column="PRICE" property="price" jdbcType="DOUBLE" />
+		<result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+		<result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
+		<result column="inventory" property="inventory" jdbcType="INTEGER" />
+		<result column="IS_SALE_OK" property="isSaleOk" jdbcType="TINYINT" />
+		<result column="PROP_COLOR" property="propColor" jdbcType="VARCHAR" />
+		<result column="PROP_SIZE" property="propSize" jdbcType="VARCHAR" />
+		<result column="PROP_STYLE" property="propStyle" jdbcType="VARCHAR" />
+		<result column="PROP_METAL_COLOR" property="propMetalColor" jdbcType="VARCHAR" />
+		<result column="PROP_C_COLOR" property="propCColor" jdbcType="VARCHAR" />
+		<result column="OLD_ID" property="oldId" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="insert" parameterType="com.subaru.maneki.model.Sku"
+			keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO product_sku
+		(
+		spu_id
+		,price
+		,weight
+		,currency_unit
+		,inventory
+		,is_sale_ok
+		,prop_color
+		,prop_size
+		,prop_style
+		,prop_metal_color
+		,prop_c_color
+		,old_id
+		<if test="gmtCreate!=null">
+			,gmt_create
+		</if>
+		<if test="gmtUpdate!=null">
+			,gmt_update
+		</if>
+		)
+		VALUES
+		(
+		#{spuId}
+		,#{price}
+		,#{weight}
+		,#{currencyUnit}
+		,#{inventory}
+		,#{isSaleOk}
+		,#{propColor}
+		,#{propSize}
+		,#{propStyle}
+		,#{propMetalColor}
+		,#{propCColor}
+		,#{oldId}
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.Sku">
+		UPDATE product_sku
+		<set>
+			spu_id = #{spuId},
+			price = #{price},
+			weight = #{weight},
+			currency_unit = #{currencyUnit},
+			inventory=#{inventory},
+			is_sale_ok=#{isSaleOk},
+			prop_color=#{propColor},
+			prop_size=#{propSize},
+			prop_style=#{propStyle},
+			prop_metal_color=#{propMetalColor},
+			prop_c_color=#{propCColor},
+			old_id = #{oldId}
+			<if test="gmtCreate!=null">
+				,gmt_create=#{gmtCreate}
+			</if>
+			<if test="gmtUpdate!=null">
+				,gmt_update=#{gmtUpdate}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	<update id="delete" parameterType="int">
+		DELETE FROM product_sku WHERE id = #{id}
+	</update>
+
+	<select id="select" parameterType="int" resultMap="SKUMap">
+		SELECT *
+		FROM product_sku WHERE id = #{id}
+	</select>
+
+	<select id="countAll" parameterType="Boolean" resultType="int">
+		SELECT count(ID)
+		FROM product_sku
+	</select>
+
+	<select id="selectBySpuId" parameterType="int" resultMap="SKUMap">
+		SELECT *
+		FROM product_sku  where
+		spu_id = #{spuId}
+	</select>
+
+</mapper>

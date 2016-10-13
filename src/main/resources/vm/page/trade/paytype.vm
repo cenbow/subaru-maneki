@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/item_line.css">
+    
+</head>
+
+<body class="payment_method_page">
+    ##{% include "../ga/body_top_template.html" %}
+
+    <div class="order_info">
+        <div class="toggle_icon"><i class="iconfont">&#xe600</i></div>
+        <span class="order_no">Order #$!{order.orderNumber}</span>
+        <span class="order_total">TOTAL <span>$!{currency} $math.roundTo(2, $!{localAmountTotal})</span></span>
+    </div>
+    <div class="address_block" style="display:none">
+        <div class="shipping_label">
+            Shipping To
+        </div>
+        <div class="name_phone">
+            <span id="order_name">$!{shippingInfo.receiverName}</span>
+            <span id="order_phone">$!{shippingInfo.receiverPhone}</span>
+        </div>
+        <div class="shipping-address">
+            <span id="order_street">$!{address.street}</span>
+            <span id="order_city">$!{address.city}</span>
+            <span id="order_state">$!{stateName}</span>
+            <span id="order_zip">$!{address.zip}</span>
+            <span id="order_country">$!{countryName}</span>
+        </div>
+    </div>
+
+    <div class="payment_method">
+        <div class="payment_title">Payment Method</div>
+        <a class="payment_line credit_card clearfix" href="/trade/stripe/card_info?orderNumber=$!{order.orderNumber}">
+            <span>Credit/Debit Card</span>
+            <img src="/img/v@3x.png" />
+            <img src="/img/m@3x.png" />
+            <img src="/img/d@3x.png" />
+            <img src="/img/a@3x.png" />
+            <i class="iconfont">&#xe606</i>
+        </a>
+        <!-- <a class="payment_line paypal clearfix">
+            <img src="/img/p@3x.png" />
+            <i class="iconfont">&#xe606</i>
+        </a> -->
+        <a class="payment_line paypal clearfix" href="/trade/moneygram?orderNumber=$!{order.orderNumber}">
+            <img src="/img/MoneyGram.png" />
+            <i class="iconfont">&#xe606</i>
+        </a>
+        <a class="payment_line paypal clearfix" href="/trade/moneygram?orderNumber=$!{order.orderNumber}">
+            <img src="/img/WesternUnion.png" />
+            <i class="iconfont">&#xe606</i>
+        </a>
+    </div>
+    
+    <script src="/js/common/jquery-2.2.4.min.js"></script>
+    <script src="/js/common/js.cookie.js"></script>
+    <script src="/js/common/jquery.payment.js"></script>
+    <script src="/js/common/util.js"></script>
+    
+    <script>
+    	$(".order_info").click(function(){
+    		$(".address_block").slideToggle("fast");
+    		$(".order_info .toggle_icon").toggleClass("flipy");
+    	});
+    </script>
+    	
+</body>

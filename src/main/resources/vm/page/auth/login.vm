@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/info.css">
+
+    <script>
+        window.onpageshow = function() {
+            notify_login();
+        }
+    </script>
+
+</head>
+
+<body ontouchstart="">
+	#parse("page/ga/body_top_template.vm")
+
+    <div class="login_block">
+        <div class="origin_div save_your_cart" style="display:none">
+            <hr>
+            <div class="origin_text">
+                Log in to Save Your Cart
+            </div>
+        </div>
+        <div class="origin_div save_your_fav" style="display:none">
+            <hr>
+            <div class="origin_text">
+                Log in to Save Your Favorites
+            </div>
+        </div>
+        <div class="origin_div view_your_cart" style="display:none">
+            <hr>
+            <div class="origin_text">
+                Log in to View Your Cart
+            </div>
+        </div>
+        <div id="fb_btn" class="fb_login">
+            <a class="btn btn-link">
+                <img src="/img/Facebook.png" />
+                <span class="fb_text">Log in with Facebook</span>
+            </a>
+        </div>
+        <div class="origin_div or">
+            <hr>
+            <div class="origin_text">
+                or
+            </div>
+        </div>
+        
+        <form class="login_form" role="form" method="post" action="/auth/login#if(${redirectUrl})?redirectUrl=${redirectUrl}#end">
+            <fieldset class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" class="form-control" id="loginEmail" name="email" required="required"/>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password"  required="required" />
+            </fieldset>
+
+            <div class="btn_group">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <a class="button signup_btn" href="/auth/signup"> Sign up</a>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button id="login_btn" class="button login_btn"> Log in</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row reset_password">
+                <a class="btn btn-link pull-right reset" href="/auth/reset_password"> Reset Password</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="alertModal" style="top:50%;left:20%;width:60%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div style="display:flex;align-items:center;justify-content:center;">
+            <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:5px;">
+                Please fill in all fields.
+            </div>
+        </div>
+    </div>
+
+    #parse("/page/user_center/contact_us.vm")
+
+	<script src="/js/common/jquery-2.2.4.min.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/common/purl.js"></script>
+    <script src="/js/common/underscore-min.js"></script>
+    <script src="/js/common/util.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

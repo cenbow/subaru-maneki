@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/wishlist.css">
+   
+    <script>
+    function init () {
+        return {
+            'exchange_rate':${exchangeRate},
+            'symbol':'${currency}',
+            'user_name':"${detailedUser.nick}",
+            #if($wishLists)
+            	'total': $wishLists.size(),
+            #else
+            	'total': 0,
+            #end
+        }
+    }
+    </script>
+</head>
+<body id='wishlist-wrap' ontouchstart="">
+	
+	##{% include "../ga/body_top_template.html" %}
+<div class='wishlist'>
+    <div id='wishlist-empty' style='display:none'>
+        <div>
+            <div style="padding: 80px 20px;">
+                <div style='text-align: center'>
+                    <i class="iconfont" style="font-size">&#xe60a;</i>
+                </div>
+                <div style="text-align:center;">
+                    <span>Your wishlist is empty</span>
+                    <br>
+                    <button onclick="continueShop()">Go Explore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='wishlist-array'>
+        <div class="user-info">
+            <div class='box-bg'>
+                <div class='line'>
+                    <span id='user-name'>$!{detailedUser.nick}</span>
+                    <span id='item-count'>$!{wishLists.size()}</span>
+                    <span style='font-size:10px'>&nbsp;items</span>
+                </div>
+            </div>
+        </div>
+        #foreach($item in $wishLists)
+            <div class="wishlist-item" id="wishlist-item-${velocityCount}">
+                <div class='item-wrap'>
+                    <a onclick='gotoDetails("$!{item.spuId}")'>
+                        <div class="item-img" style="background-image:url($!{item.productImage})">
+                        </div>
+                    </a>
+                    <div class="item-info">
+                        <div class='triangle'></div>
+                        <div class='text-col'>
+                            <span class="price">${currency}&nbsp;$!{item.productPrice}</span>
+                            <del class="c-price">$!{item.productPlatformPrice}</del>
+                            <span class="delete iconfont" onclick="deleteModalOpen($!{item.id},${velocityCount})">&#xe60f;</span>
+                        </div>
+                        <div class='triangle'></div>
+                    </div>
+                </div>
+            </div>
+        #end
+        <div class="wishlist-item" id='end' style='text-align:center;visibility:hidden'>
+            <div class="item-img" style="background-image:url(/img/wishlist_end.png)">
+            </div>
+        </div>
+    </div>
+
+    <div id="alertModal" style="top:0px;height:100%;width:100%;position:fixed;z-index:1200;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;width:100vw">
+            <div class='alertContent' style="background:rgba(0,0,0,0.8);color:white;opacity:1;padding:10px;border-radius:10%;">
+                fill content here
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" style="top:0px;background:rgba(0,0,0,0.3);height:100vh;width:100%;position:fixed;z-index:1000;visibility:hidden;opacity:0;transition:all 0.45s ease">
+        <div class="modal-body">
+            <div class='delete-msg'><b style="font-size:20px;">Are you sure</b> <br> you want to delete this item?</div>
+            <button class="btn-div delete-btn" onclick="deleteFromWishlist()">
+                Yes, delete it
+            </button>
+            <button class="btn-div delete-btn" onclick='deleteModalClose()'>
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/common/jquery-2.2.4.min.js"></script>
+<script src="/js/common/js.cookie.js"></script>
+<script src="/js/common/bootstrap.min.js"></script>
+<script src="/js/common/init.js"></script>
+<script src="/js/common/util.js"></script>
+<script src="/js/wishlist.js"></script>
+
+
+	##{% include "../ga/body_bottom_template.html" %}
+</body>
+</html>

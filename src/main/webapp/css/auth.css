@@ -1,0 +1,176 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.origin_div {
+  margin-bottom: 20px;
+}
+.origin_div hr {
+  border-top-color: #e4322d;
+}
+.origin_div .origin_text {
+  font-size: 15px;
+  color: #e4322d;
+  margin: -32px auto 0 auto;
+  background-color: #f4f4f4;
+  text-align: center;
+  width: 210px;
+}
+.origin_div.or {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.origin_div.or hr {
+  border-top-color: #ccc;
+}
+.origin_div.or .origin_text {
+  color: #404040;
+  width: 80px;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+.fb_login a {
+  border-radius: 2.5px;
+  border: none;
+  box-sizing: border-box;
+  height: 42px;
+  line-height: 42px;
+  padding: 0;
+  background-color: #3B5998;
+  color: white;
+  box-shadow: 0 0 0 1px #D9D9D9;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: normal;
+  font-family: Helvetica;
+}
+.fb_login a:hover, .fb_login a:focus {
+  text-decoration: none;
+  background-color: #3B5998;
+  color: #fff;
+}
+.fb_login a img {
+  height: 25px;
+  position: relative;
+  bottom: 2px;
+}
+.fb_login a .fb_text {
+  margin-left: 15px;
+}
+
+.form-control {
+  border-radius: 4px;
+  border: none;
+  box-sizing: border-box;
+  height: 42px;
+  background: transparent;
+  background-color: #FFF;
+  color: #333;
+  box-shadow: 0 0 0 1px #D9D9D9;
+  display: block;
+  width: 100%;
+  padding: 13px 11px;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 1.5px #1990c6;
+  outline: none;
+}
+
+.login_block {
+  padding: 20px 15px 0 15px;
+}
+.login_block .login_form label {
+  color: #8d8d8d;
+  font-size: 15px;
+  font-weight: normal;
+}
+.login_block .login_form input {
+  padding: 13px 11px;
+  height: 42px;
+}
+.login_block .login_form .btn_group .button {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 12px;
+  width: 100%;
+  text-align: center;
+}
+.login_block .login_form .btn_group .button:hover, .login_block .login_form .btn_group .button:focus {
+  text-decoration: none;
+}
+.login_block .login_form .btn_group .button.signup_btn {
+  background-color: #fff;
+  color: #F15440;
+}
+.login_block .login_form .btn_group .button.signup_btn:active {
+  color: #993300;
+  background-color: #ddd;
+}
+.login_block .login_form .btn_group .button.login_btn {
+  background-color: #F15440;
+  color: #fff;
+}
+.login_block .login_form .btn_group .button.login_btn:active {
+  background-color: #993300;
+}
+.login_block .login_form .reset_password {
+  margin-top: 20px;
+  font-weight: normal;
+  font-family: Helvetica;
+  font-size: 14px;
+}
+.login_block .login_form .reset_password .reset {
+  color: #f15440;
+}
+.login_block .login_form .reset_password .reset:hover, .login_block .login_form .reset_password .reset:focus {
+  text-decoration: none;
+}
+
+.signup_page {
+  padding: 20px;
+}
+.signup_page .signup_form label {
+  color: #8d8d8d;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.signup_btn {
+  background-color: #1990c6;
+  border-color: #1990c6;
+  height: 42px;
+  border-radius: 2.5px;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  font-family: Helvetica;
+  font-weight: normal;
+}
+
+.password_div {
+  margin-top: 15px;
+}
+.password_div label {
+  font-size: 18px;
+  color: #8d8d8d;
+}
+.password_div input {
+  height: 20px;
+}
+
+.reset_password_page {
+  padding: 20px 15px;
+}
+.reset_password_page label {
+  color: #8d8d8d;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=auth.css.map */

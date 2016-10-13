@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SkuImageRelationDao">
+	<resultMap id="SkuImageMap" type="com.subaru.maneki.model.SkuImageRelation">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="IMAGE_ID" property="imageId" jdbcType="BIGINT" />
+		<result column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.SkuImageRelation"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO product_sku_image (
+		IMAGE_ID, SKU_ID,
+		<if test="gmtCreate != null">
+			GMT_CREATE,
+		</if>
+		<if test="gmtUpdate != null">
+			GMT_UPDATE,
+		</if>
+		)
+		values (
+		#{imageId}, #{skuId},
+		<if test="gmtCreate != null">
+			#{gmtCreate},
+		</if>
+		<if test="gmtModified != null">
+			#{gmtUpdate},
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.SkuImageRelation">
+		UPDATE product_sku_image
+		<set>
+			<if test="skuId > 0">
+				SKU_ID = #{skuId},
+			</if>
+			<if test="imageId > 0">
+				IMAGE_ID = #{imageId},
+			</if>
+			<if test="gmtCreate != null">
+				GMT_CREATE = #{gmtCreate},
+			</if>
+			<if test="gmtUpdate != null">
+				GMT_UPDATE = #{gmtUpdate},
+			</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_sku_image where SKU_ID = #{skuId} AND IMAGE_ID = #{imageId}
+	</delete>
+	
+	<select id = "selectBySkuId" parameterType="int" resultMap = "SkuImageMap">
+		SELECT * FROM product_sku_image WHERE SKU_ID=#{skuId}
+	</select>
+	
+	<select id = "selectByImageId" parameterType="int" resultMap = "SkuImageMap">
+		SELECT * FROM product_sku_image WHERE IMAGE_ID=#{imageId}
+	</select>
+</mapper>

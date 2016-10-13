@@ -1,0 +1,142 @@
+body {
+  background-color: #f4f4f4;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1470022162_7586992.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1470022162_7586992.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1470022162_7586992.woff") format("woff"), url("//at.alicdn.com/t/font_1470022162_7586992.ttf") format("truetype"), url("//at.alicdn.com/t/font_1470022162_7586992.svg#iconfont") format("svg");
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont";
+  font-size: 16px;
+  font-style: normal;
+}
+
+.contact_us {
+  margin-bottom: 50px;
+}
+.contact_us .partner_info {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: #fff;
+}
+.contact_us .partner_info a {
+  display: block;
+}
+.contact_us .partner_info .row {
+  height: 60px;
+  margin-left: 3px;
+  margin-right: 0px;
+  position: relative;
+}
+.contact_us .partner_info .row .col-left {
+  width: 10%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+.contact_us .partner_info .row .col-left .vertical {
+  padding-top: 20px;
+  padding-left: 35%;
+}
+.contact_us .partner_info .row .col-left .vertical .li_style {
+  list-style-type: disc;
+  color: #e5e5e5;
+}
+.contact_us .partner_info .row .col-middle {
+  width: 80%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+.contact_us .partner_info .row .col-middle .content {
+  padding-top: 20px;
+}
+.contact_us .partner_info .row .col-middle a {
+  color: #6c6c6c;
+  font-size: 15px;
+}
+.contact_us .partner_info .row .col-middle a span:first-child {
+  float: left;
+  margin-top: 0px;
+  height: 20px;
+}
+.contact_us .partner_info .row .col-right {
+  width: 90%;
+  height: 100%;
+  float: left;
+}
+.contact_us .partner_info .row .col-right a {
+  color: #6c6c6c;
+  font-size: 15px;
+  height: 60px;
+  line-height: 60px;
+}
+.contact_us .partner_info .row .col-right a:hover, .contact_us .partner_info .row .col-right a:focus {
+  text-decoration: none;
+}
+.contact_us .partner_info .row i {
+  display: inline-block;
+  color: #ccc;
+  font-size: 12px;
+  position: absolute;
+  right: 15px;
+  top: 21px;
+}
+.contact_us .partner_info .row .col-middle, .contact_us .partner_info .row .col-right {
+  border-bottom: 1px solid #e9e9dc;
+}
+.contact_us .partner_info .row:last-child .col-middle, .contact_us .partner_info .row:last-child .col-right {
+  border-bottom: none;
+}
+.contact_us .contact_info {
+  background-color: #fff;
+  color: #666666;
+  text-align: center;
+  font-size: 14px;
+}
+.contact_us .contact_info .need_help {
+  color: #F15440;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.contact_us .contact_info .contact_text {
+  padding-bottom: 2px;
+}
+.contact_us .contact_info .partner_mail .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.contact_us .contact_info .partner_mail .company_mail {
+  text-align: center;
+  padding-bottom: 18px;
+}
+
+.aboutus .our_story_title .our_story {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.aboutus .avatar {
+  display: block;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.aboutus .team {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.aboutus .whats_more {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/*# sourceMappingURL=info.css.map */

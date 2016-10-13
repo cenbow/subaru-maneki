@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.subaru.maneki.dao.SkuPropDao">
+	<resultMap id="SkuPropMap" type="com.subaru.maneki.model.SkuProp">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="PROP_ID" property="propId" jdbcType="BIGINT" />
+		<result column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="SEQUENCE" property="sequence" jdbcType="BIGINT" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.SkuProp"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO product_sku_prop (
+		PROP_ID, SKU_ID
+		<if test="sequence >= 0">
+			,SEQUENCE
+		</if>
+		<if test="gmtCreate != null">
+			,GMT_CREATE
+		</if>
+		<if test="gmtUpdate != null">
+			,GMT_UPDATE
+		</if>
+		)
+		values (
+		#{propId}, #{skuId}
+		<if test="sequence >= 0">
+			,#{sequence}
+		</if>
+		<if test="gmtCreate != null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate != null">
+			,#{gmtUpdate}
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.SkuProp">
+		UPDATE product_sku_prop
+		<set>
+			<if test="skuId > 0">
+				SKU_ID = #{skuId},
+			</if>
+			<if test="propId > 0">
+				PROP_ID = #{propId},
+			</if>
+			<if test="sequence >= 0">
+				SEQUENCE = #{sequence},
+			</if>
+			<if test="gmtCreate != null">
+				GMT_CREATE = #{gmtCreate},
+			</if>
+			<if test="gmtUpdate != null">
+				GMT_UPDATE = #{gmtUpdate},
+			</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM product_sku_prop where ID = #{id}
+	</delete>
+	
+	<select id="select" parameterType="int" resultMap="SkuPropMap">
+		SELECT * FROM product_sku_prop WHERE ID=#{id}
+	</select>
+	
+	<select id="selectBySkuIdAndPropId" parameterType="int" resultMap="SkuPropMap">
+		SELECT * FROM product_sku_prop WHERE SKU_ID=#{skuId} AND PROP_ID=#{propId}
+	</select>
+	
+	<select id = "selectBySkuId" parameterType="int" resultMap = "SkuPropMap">
+		SELECT * FROM product_sku_prop WHERE SKU_ID=#{skuId}
+	</select>
+	
+	<select id = "selectByPropId" parameterType="int" resultMap = "SkuPropMap">
+		SELECT * FROM product_sku_prop WHERE PROP_ID=#{propId}
+	</select>
+</mapper>

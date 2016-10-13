@@ -1,0 +1,122 @@
+.how_it_works {
+  color: #1DAF30;
+  text-align: center;
+  background-color: #fff;
+  min-height: 100%;
+  padding: 11% 15% 0 15%;
+}
+.how_it_works.short_ver {
+  padding: 15px 15% 20px 15%;
+}
+.how_it_works.short_ver h1 {
+  margin: 0 0 25px 0;
+}
+.how_it_works.short_ver .circle {
+  margin-bottom: 8px;
+}
+.how_it_works.short_ver p {
+  margin-bottom: 25px;
+}
+.how_it_works h1 {
+  font-weight: normal;
+  font-size: 24px;
+  margin-bottom: 18%;
+}
+.how_it_works .circle {
+  height: 28px;
+  width: 28px;
+  border: 1px solid #1DAF30;
+  border-radius: 50%;
+  font-size: 18px;
+  margin: 0 auto 5% auto;
+  line-height: 26px;
+}
+.how_it_works p {
+  font-size: 12px;
+  margin-bottom: 10%;
+}
+.how_it_works .ok_button {
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  width: 138px;
+  border: 1px solid #1DAF30;
+  border-radius: 3px;
+  font-size: 18px;
+  margin: 40% auto 0 auto;
+  color: #1DAF30;
+}
+.how_it_works .ok_button:hover, .how_it_works .ok_button focus {
+  text-decoration: none;
+}
+
+.activated_page {
+  margin: 20px;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+.activated_page .activated_content {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.activated_page .activated_content img {
+  height: 59px;
+  margin-bottom: 5px;
+}
+.activated_page .activated_content .circle {
+  height: 89px;
+  width: 89px;
+  border: 1px solid #00B718;
+  background-color: #00B718;
+  color: #fff;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.activated_page .activated_content .circle p {
+  font-size: 12px;
+  margin: 2px 0 8px 0;
+}
+.activated_page .activated_content .circle p:first-child {
+  margin: 5px 0;
+}
+.activated_page .activated_content .circle p:nth-child(2) {
+  font-size: 24px;
+  font-weight: 200;
+  margin: 0;
+}
+.activated_page .activated_content span {
+  display: block;
+  margin: 10px auto;
+  color: #1DAF30;
+  font-size: 18px;
+}
+.activated_page .activated_content .explan {
+  padding-top: 5px;
+  font-size: 12px;
+  color: #00B718;
+  border-top: 2px solid #e5e5e5;
+}
+.activated_page .activated_content table {
+  margin: 12px 0 2px 0;
+  border: 1px solid #e5e5e5;
+  width: 100%;
+  font-size: 12px;
+  color: #333;
+}
+.activated_page .activated_content table tr {
+  height: 35px;
+  line-height: 35px;
+}
+.activated_page .activated_content table tr:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+.activated_page .activated_content table tr td:first-child {
+  padding-left: 12px;
+}
+.activated_page .activated_content table tr td:last-child {
+  text-align: right;
+  padding-right: 10px;
+}
+
+/*# sourceMappingURL=cash_back.css.map */

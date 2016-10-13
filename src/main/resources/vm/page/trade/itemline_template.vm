@@ -1,0 +1,34 @@
+<div class="item_line">
+    <div class="image_block">
+        <img src="${item.imageUrl}"/>
+    </div>
+    <div class="item_content">
+        <div class="item_name">
+            $!{item.productName}
+        </div>
+
+        <div class="item_sku">
+            #if($item.propList)
+	            #foreach($prop in $!{item.propList})
+		            <span>
+		            	$!{prop.propValue}
+		            	#if($!{velocityCount} != $!($item.propList.size()))
+		            		<span>,&nbsp;</span>
+		            	#end
+		            </span>
+	            #end
+	        #end
+        </div>
+
+        <div class="price_quantity">
+            <div class="item_prices">
+                <span class="item_price">$!{currency} $math.roundTo(2, $!{item.price})</span>
+                <span class="c_price">$math.roundTo(2, $!{item.platformPrice})</span>
+            </div>
+            <div class="item_quantity">
+                <span>x</span>
+                <span>$!{item.quantity}</span>
+            </div>
+        </div>
+    </div>
+</div>

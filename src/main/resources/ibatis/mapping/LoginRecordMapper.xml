@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.subaru.maneki.dao.LoginRecordDao">
+	<resultMap id="LoginRecordMap" type="com.subaru.maneki.model.LoginRecord">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="TOKEN" property="token" jdbcType="VARCHAR" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="LOGIN_TYPE" property="loginType" jdbcType="INTEGER" />
+		<result column="GMT_EXPIRE" property="gmtExpire" jdbcType="TIMESTAMP" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.subaru.maneki.model.LoginRecord"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO auth_login
+		(
+		<if test="userId!=null">
+			user_id
+		</if>
+		<if test="token!=null">
+			,token
+		</if>
+		<if test="ip!=null">
+			,ip
+		</if>
+		<if test="loginType!=null">
+			,login_type
+		</if>
+		<if test="gmtExpire!=null">
+			,gmt_expire
+		</if>
+		<if test="gmtCreate!=null">
+			,gmt_create
+		</if>
+		<if test="gmtUpdate!=null">
+			,gmt_update
+		</if>
+		)
+		VALUES
+		(
+		<if test="userId!=null">
+			#{userId}
+		</if>
+		<if test="token!=null">
+			,#{token}
+		</if>
+		<if test="ip!=null">
+			,#{ip}
+		</if>
+		<if test="loginType!=null">
+			,#{loginType}
+		</if>
+		<if test="gmtExpire!=null">
+			,#{gmtExpire}
+		</if>
+		<if test="gmtCreate!=null">
+			,#{gmtCreate}
+		</if>
+		<if test="gmtUpdate!=null">
+			,#{gmtUpdate}
+		</if> 
+		)
+	</insert>
+	
+	<select id="select" parameterType="int" resultMap="LoginRecordMap">
+		SELECT *
+		FROM auth_login WHERE id = #{id}
+	</select>
+	
+	<select id="selectByUserId" parameterType="int" resultMap="LoginRecordMap">
+		SELECT *
+		FROM auth_login WHERE user_id = #{userId}
+	</select>
+	
+	<select id="selectByToken" parameterType="string" resultMap="LoginRecordMap">
+		SELECT *
+		FROM auth_login WHERE token = #{token}
+	</select>
+	
+	<select id="selectByIp" parameterType="string" resultMap="LoginRecordMap">
+		SELECT *
+		FROM auth_login WHERE ip = #{ip}
+	</select>
+
+	<select id="countExpired" resultType="int">
+		SELECT count(*) FROM auth_login WHERE gmt_expire is null OR gmt_expire &lt;= now()
+	</select>
+	
+	<update id="update" parameterType="com.subaru.maneki.model.LoginRecord">
+		UPDATE auth_login
+		<set>
+			<if test="userId!=null">
+				USER_ID = #{userId}
+			</if>
+			<if test="token!=null">
+				,TOKEN = #{token}
+			</if>
+			<if test="ip!=null">
+				,IP = #{ip}
+			</if>
+			<if test="loginType!=null">
+				,LOGIN_TYPE = #{loginType}
+			</if>
+			<if test="gmtExpire!=null">
+				,GMT_EXPIRE = #{gmtExpire}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM auth_login WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteExpired">
+		DELETE FROM auth_login WHERE gmt_expire is null OR gmt_expire &lt; now()
+	</delete>
+</mapper>

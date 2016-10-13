@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Club Factory | Lower Price, Better Service</title>
+    <meta name="keywords" content="Club Factory">
+    <meta name="description" content="Club Factory">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    {% for css_url in css_urls %}
+    <link rel="stylesheet" href="{{css_url}}">
+    {% end %}
+</head>
+
+<body>
+    {% include "../ga/body_top_template.html" %}
+
+    <div class="order_tracking_page container">
+        {% for delivery in delivery_infos %}
+        
+        <div class="track_order">
+            <div class="track_header">
+                <span>{{delivery['delivery_no']}}</span>
+                <div style="display:inline-block;float:right" class="flipy"><i class="iconfont">&#xe600</i></div>
+            </div>
+            <div class="track_content">
+                <ul>
+
+                {% if delivery['shipped'] %}
+                    {% if delivery['delivery_way']=='dhl_small' %}
+                    <li>
+                        <span>
+                            <a href="http://webtrack.dhlglobalmail.com/?trackingnumber={{delivery['delivery_no']}}">
+                                Click here to track your delivery information. Please note, there is 24-48 hours delay for tracking info to be shown online.
+                            </a>
+                        </span>
+                    </li>
+                    {% elif delivery['delivery_way']=='aramex' %}
+                    <li>
+                        <span>
+                            <a href="http://track.aftership.com/aramex/{{delivery['delivery_no']}}">
+                                Click here to track your delivery information. Please note, there is 24-48 hours delay for tracking info to be shown online.
+                            </a>
+                        </span>
+                    </li>
+                    {% elif delivery['delivery_way']=='dhl' %}
+                    <li>
+                        <span>
+                            <a href="http://track.aftership.com/dhl/{{delivery['delivery_no']}}">
+                                Click here to track your delivery information. Please note, there is 24-48 hours delay for tracking info to be shown online.
+                            </a>
+                        </span>
+                    </li>
+                    {% elif delivery['delivery_way']=='e' %}
+                    <li>
+                        <span>
+                            <a href="http://track.aftership.com/china-ems/{{delivery['delivery_no']}}">
+                                Click here to track your delivery information. Please note, there is 24 hours delay for tracking info to be shown online.
+                            </a>
+                        </span>
+                    </li>
+                    {% end %}
+
+                {% end %}
+
+                {% if delivery['connect_post_date'] %}
+                    <li>
+                        <span>Connecting to Post Office,</span>
+                        <span>{{delivery['connect_post_date']}}</span>
+                    </li>
+                    {% end %}
+                    {% if delivery['warehouse_process_date'] %}
+                    <li>
+                        <span>Warehouse Processing,</span>
+                        <span>{{delivery['warehouse_process_date']}}</span>
+                    </li>
+                    {% end %}
+                    {% if delivery['order_process_date'] %}
+                    <li>
+                        <span>Order Processing,</span>
+                        <span>{{delivery['order_process_date']}}</span>
+                    </li>
+                    {% end %}
+                    {% if delivery['order_received_date'] %}
+                    <li>
+                        <span>Order Received,</span>
+                        <span>{{delivery['order_received_date']}}</span>
+                    </li>
+                {% end %}
+                </ul>
+            </div>
+        </div>
+        {% end %}
+    </div>
+
+    {% for js_url in js_urls %}
+    <script src="{{js_url}}"></script>
+    {% end %}
+</body>

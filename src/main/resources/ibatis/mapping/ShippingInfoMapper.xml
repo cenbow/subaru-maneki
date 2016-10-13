@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.subaru.maneki.dao.ShippingInfoDao">
+
+	<resultMap id="BaseResultMap" type="com.subaru.maneki.model.ShippingInfo">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="RECEIVER_NAME" property="receiverName" jdbcType="VARCHAR" />
+		<result column="RECEIVER_PHONE" property="receiverPhone" jdbcType="VARCHAR" />
+		<result column="RECEIVER_EMAIL" property="receiverEmail" jdbcType="VARCHAR" />
+		<result column="ADDRESS_ID" property="addressId" jdbcType="BIGINT" />
+		<result column="POST_FEE" property="postFee" jdbcType="DOUBLE" />
+		<result column="DELIVERY_METHOD" property="deliveryMethod" jdbcType="VARCHAR" />
+		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="GMT_UPDATE" property="gmtUpdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.subaru.maneki.model.ShippingInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into trade_shipping_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="receiverName != null">
+				RECEIVER_NAME,
+			</if>
+			<if test="receiverPhone != null">
+				RECEIVER_PHONE,
+			</if>
+			<if test="receiverEmail != null">
+				RECEIVER_EMAIL,
+			</if>
+			<if test="addressId != null">
+				ADDRESS_ID,
+			</if>
+			<if test="postFee != null">
+				POST_FEE,
+			</if>
+			<if test="deliveryMethod != null">
+				DELIVERY_METHOD
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="receiverName != null">
+				#{receiverName,jdbcType=BIGINT},
+			</if>
+			<if test="receiverPhone != null">
+				#{receiverPhone,jdbcType=BIGINT},
+			</if>
+			<if test="receiverEmail != null">
+				#{receiverEmail,jdbcType=BIGINT},
+			</if>
+			<if test="addressId != null">
+				#{addressId,jdbcType=SMALLINT},
+			</if>
+			<if test="postFee != null">
+				#{postFee,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryMethod != null">
+				#{deliveryMethod,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.subaru.maneki.model.ShippingInfo">
+		update trade_shipping_info
+		<set>
+			<if test="receiverName != null">
+				RECEIVER_NAME = #{receiverName,jdbcType=BIGINT},
+			</if>
+			<if test="receiverPhone != null">
+				RECEIVER_PHONE = #{receiverPhone,jdbcType=BIT},
+			</if>
+			<if test="receiverPhone != null">
+				RECEIVER_EMAIL = #{receiverEmail,jdbcType=BIT},
+			</if>
+			<if test="addressId != null">
+				ADDRESS_ID = #{addressId,jdbcType=VARCHAR},
+			</if>
+			<if test="postFee != null">
+				POST_FEE = #{postFee,jdbcType=DOUBLE},
+			</if>
+			<if test="deliveryMethod != null">
+				DELIVERY_METHOD = #{deliveryMethod,jdbcType=DOUBLE}
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from trade_shipping_info
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="select" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		*
+		from trade_shipping_info
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+
+</mapper>
