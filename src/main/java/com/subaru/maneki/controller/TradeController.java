@@ -404,6 +404,7 @@ public class TradeController {
         User currentUser = loginService.getCurrentUser(request);
 
         List<CartVO> userCartVOs = cartManager.getUserCartVOs(currentUser.getId());
+        //TODO 增加SKU库存判断
         List<TradeProduct> tradeProductList = getTradeProducts(userCartVOs);
 
         try {
